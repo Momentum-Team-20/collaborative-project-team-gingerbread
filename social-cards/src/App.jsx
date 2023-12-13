@@ -28,6 +28,9 @@ function App() {
             path='/'
             element={<Gallery token={token} />} /> */}
           <Route
+            path='/registration'
+            element={<Registration />} />
+          <Route
             path='/login'
             element={<Login setAuth={setAuth} />} />
           {/* <Route
