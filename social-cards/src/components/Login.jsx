@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = ({ setAuth }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -28,9 +29,11 @@ const Login = ({ setAuth }) => {
     };
 
 
+
     return (
         <>
             {error && <p style={{ color: 'red' }}> {error} </p>}
+            <h1>Login Here: </h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-controls">
                     <label htmlFor="username-field">Username: </label>
@@ -44,9 +47,13 @@ const Login = ({ setAuth }) => {
                     <label htmlFor="password-field">Password: </label>
                     <input
                         id="password-field"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                </div>
+                <div>
+                    <label htmlFor='check'>Show Password</label>
+                    <input id='check' type='checkbox' value={showPassword} onChange={() => setShowPassword((prev) => !prev)} />
                 </div>
                 <div className="form-submit">
                     <input type="submit" value="Log In" />
