@@ -5,6 +5,7 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import useLocalStorageState from 'use-local-storage-state';
 import Login from './components/Login';
+import LandingPage from './components/LandingPage'
 import Registration from './components/Registration';
 import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
 
@@ -25,9 +26,12 @@ function App() {
       <div className='App'>
         {/* <Navbar /> */}
         <Routes>
-          {/* <Route
+          <Route
             path='/'
-            element={<Gallery token={token} />} /> */}
+            element={<LandingPage />} />
+          {/* <Route
+            path='/home'
+          element={<Gallery token={token} />} /> */}
           <Route
             path='/registration'
             element={<Registration />} />
