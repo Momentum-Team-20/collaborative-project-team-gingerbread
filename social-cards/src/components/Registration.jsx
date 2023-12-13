@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Route, Link, useNavigate } from 'react-router-dom';
 
 
-
-const Login = ({ setAuth }) => {
+const Registration = () => {
+    const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,22 +17,28 @@ const Login = ({ setAuth }) => {
         console.log(username);
         console.log(password);
         axios
-            .post('https://social-cards.fly.dev/api/auth/token/login', {
+            .post('https://social-cards.fly.dev/api/auth/users/', {
+                email: email,
                 username: username,
                 password: password,
             })
-            .then((res) => {
-                setAuth(username, res.data.auth_token);
-                navigate("/");
-            })
-            .catch((err) => setError(err.response.data.non_field_errors[0]));
+            .then(navigate(`/login`))
+            // .then((res) => console.log(res))
+            .catch((err) => setError(err.response.data.non_field_errors))
     };
-
 
     return (
         <>
             {error && <p style={{ color: 'red' }}> {error} </p>}
             <form onSubmit={handleSubmit}>
+                <div className="form-controls">
+                    <label htmlFor="email-field">Email: </label>
+                    <input
+                        id="email-field"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
                 <div className="form-controls">
                     <label htmlFor="username-field">Username: </label>
                     <input
@@ -56,4 +63,4 @@ const Login = ({ setAuth }) => {
     );
 };
 
-export default Login;
+export default Registration;
