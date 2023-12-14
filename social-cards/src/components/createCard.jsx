@@ -3,6 +3,19 @@ import axios from 'axios'
 
 
 const CreateCard = ({token}) => {
+
+//Form State
+const [frontText, setFrontText] = useState('');
+const [backText, setBackText] = useState('');
+const [uploadImage, setUploadImage] = useState('');
+const [backgroundColor, setBackgroundColor] = useState('');
+const [font, setFont] = useState('');
+
+
+
+//console.log('front text is', frontText)
+
+    
 //     const [cards, setCards] = useState([])
 //     const [cardIndex, setCardIndex] = useState(0)
 //     const [loading, setLoading] = useState(true)
@@ -26,7 +39,7 @@ const CreateCard = ({token}) => {
             <div className="sidebarOptions">
             <div>
                 <span>Front Text</span>
-                <input type="text"/>
+                <input type="text"  onChange={(evt) => setFrontText(evt.target.value)}/>
             </div>
             <div>
                 <span>Back Text</span>
@@ -51,12 +64,11 @@ const CreateCard = ({token}) => {
             </div>
 
             <div className="previewCard">
-
+            <button type="button">Publish</button>
             </div>
             </div>
         </div>
     )
-
  
 
 }
