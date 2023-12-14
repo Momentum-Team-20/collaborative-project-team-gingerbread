@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -65,6 +65,11 @@ const Login = ({ setAuth }) => {
                             Log In
                         </span>
                     </button>
+                </div>
+                <div>
+                    <p>Need an Account?
+                        <Link to={{ pathname: "/registration" }} ><p>Sign up now!</p></Link>
+                    </p>
                 </div>
             </form>
         </>
