@@ -1,5 +1,5 @@
 import './App.css'
-import CreateCard from './components/createCard'
+import CreateCard from './components/CreateCard'
 
 function App() {
 

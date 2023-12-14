@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import previewCard from "./PreviewCard";
+import PreviewCard from "./PreviewCard";
 
 
 const CreateCard = ({token}) => {
@@ -13,12 +15,8 @@ const [font, setFont] = useState('');
 
 
 
-//console.log('front text is', frontText)
+// console.log('front text is', frontText)
 
-    
-//     const [cards, setCards] = useState([])
-//     const [cardIndex, setCardIndex] = useState(0)
-//     const [loading, setLoading] = useState(true)
 
 // useEffect(() => {
 //     axios
@@ -43,7 +41,7 @@ const [font, setFont] = useState('');
             </div>
             <div>
                 <span>Back Text</span>
-                <input type="text"/>
+                <input type="text" onChange={(evt) => setBackText(evt.target.value)}/>
             </div>
             <div>
                 <span>Upload an image</span>
@@ -55,7 +53,9 @@ const [font, setFont] = useState('');
                 </div>
                 <div>
                     <label htmlFor="font">Choose a font</label>
-                    <select name="font">
+                    <select name="font" onChange={e => {
+                        setFont(e.target.value)
+                    }}>
                         <option value="Ariel">Ariel</option>
                         <option value="Helvetica">Helvetica</option>
                         <option value="Times New Roman">Times New Roman</option>
@@ -64,12 +64,20 @@ const [font, setFont] = useState('');
             </div>
 
             <div className="previewCard">
+                <PreviewCard 
+                font={font}
+                frontText={frontText}
+                backText={backText}
+                backgroundColor={backgroundColor}
+                uploadImage={uploadImage}
+                />
             <button type="button">Publish</button>
             </div>
             </div>
         </div>
     )
  
+
 
 }
 
