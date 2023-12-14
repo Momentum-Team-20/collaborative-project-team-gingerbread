@@ -68,7 +68,7 @@ const Login = ({ setAuth }) => {
                 </div>
                 <div>
                     <p>Need an Account?
-                        <Link to={{ pathname: "/registration" }} ><p>Sign up now!</p></Link>
+                        <Link to={{ pathname: "/registration" }} > Sign up now!</Link>
                     </p>
                 </div>
             </form>
