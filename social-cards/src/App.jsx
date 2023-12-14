@@ -7,6 +7,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import Login from './components/Login';
 import LandingPage from './components/LandingPage'
 import Registration from './components/Registration';
+import Navbar from './components/Navbar';
 import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
 
 function App() {
@@ -23,29 +24,27 @@ function App() {
 
   return (
     <>
-      <div className='App'>
-        {/* <Navbar /> */}
-        <Routes>
-          <Route
-            path='/'
-            element={<LandingPage />} />
-          {/* <Route
+      <Navbar />
+      <Routes>
+        <Route
+          path='/'
+          element={<LandingPage />} />
+        {/* <Route
             path='/home'
           element={<Gallery token={token} />} /> */}
-          <Route
-            path='/registration'
-            element={<Registration />} />
-          <Route
-            path='/login'
-            element={<Login setAuth={setAuth} />} />
-          {/* <Route
+        <Route
+          path='/registration'
+          element={<Registration />} />
+        <Route
+          path='/login'
+          element={<Login setAuth={setAuth} />} />
+        {/* <Route
             path='/profile'
             element={<Profile token={token} />} /> */}
-          {/* <Route
+        {/* <Route
             path='newCard'
             element={<NewCard token={token} />} /> */}
-        </Routes>
-      </div>
+      </Routes>
     </>
 
 
