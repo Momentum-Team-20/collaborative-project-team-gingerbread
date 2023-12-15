@@ -43,7 +43,7 @@ const [font, setFont] = useState('');
                     <select name="font" onChange={e => {
                         setFont(e.target.value)
                     }}>
-                        <option value="Ariel">Ariel</option>
+                        <option value="Ariel" onSelect={handleFontChange}>Ariel</option>
                         <option value="Helvetica">Helvetica</option>
                         <option value="Times New Roman">Times New Roman</option>
                     </select>
@@ -67,10 +67,14 @@ const [font, setFont] = useState('');
         
 }
 
+const handleFontChange = (e) => {
+    
+}
+
 
 
 const handlePublish = (e) => {
-    e.preventdefault()
+    e.preventDefault()
     axios  
         .post('https://social-cards.fly.dev/api/cards/', {
             username: username,
