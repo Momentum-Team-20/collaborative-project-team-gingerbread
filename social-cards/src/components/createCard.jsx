@@ -17,10 +17,16 @@ const [font, setFont] = useState('');
 const handlePublish = (e) => {
     e.preventDefault()
     const config = {
-        headers: { Authorization: `Bearer Token:${token}` }
+        headers: { Authorization: `Token ${token}` }
     };
     axios  
-        .post('https://social-cards.fly.dev/api/cards/', {}, config)
+        .post('https://social-cards.fly.dev/api/cards/', {
+            "front_text": frontText,
+            "back_text": backText,
+            "imageURL": uploadImage,
+            "background_color": backgroundColor,
+            "font": font,
+        }, config)
         .then((res) => console.log(res) )
 }
 
