@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { FaBars } from "react-icons/fa";
 // import styled from "styled-components";
 
-const Navbar = (isAuthenticated, setToken) => {
+const Navbar = ({ isAuthenticated, setToken }) => {
 
     const navigate = useNavigate();
     // const Navbar = { isAuthenticated, setToken } => {

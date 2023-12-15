@@ -13,9 +13,9 @@ import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState('');
-  const [token, setToken] = useState(null);
-  // const [token, setToken] = useLocalStorageState("Token", "");
-  const isAuthenticated = token !== null;
+  // const [token, setToken] = useState(null);
+  const [token, setToken] = useLocalStorageState("Token", "");
+  const isAuthenticated = token !== "";
   const [cards, setCards] = useState([]);
 
   const setAuth = (username, token) => {
