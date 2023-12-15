@@ -2,14 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-const LandingPage = () => {
-
+const LandingPage = (isAuthenticated) => {
+    console.log('token in the landing page ', isAuthenticated)
     return (
         <>
-            {/* <Navbar /> */}
+            {isAuthenticated ?
+                <h1> Log in please</h1>
+                :
+                <h1> you have been logged in</h1>
+                // :
 
-
-            <h1 >hello</h1>
+            }
         </>
     )
 }

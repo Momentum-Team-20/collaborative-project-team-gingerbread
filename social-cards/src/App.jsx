@@ -13,9 +13,9 @@ import { Route, Routes } from 'react-router-dom';
 
 function App() {
   const [username, setUsername] = useState('');
-  // const [token, setToken] = useState(null);
-  const [token, setToken] = useLocalStorageState("token", "");
-  const isAuthenticated = token !== "";
+  const [token, setToken] = useState(null);
+  // const [token, setToken] = useLocalStorageState("Token", "");
+  const isAuthenticated = token !== null;
   const [cards, setCards] = useState([]);
 
   const setAuth = (username, token) => {
@@ -24,7 +24,7 @@ function App() {
     console.log(token);
   }
 
-
+  console.log('showing token outside of Auth: ', token);
   return (
     <>
       <Navbar isAuthenticated={isAuthenticated} setToken={setToken} />
@@ -32,7 +32,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<LandingPage />} />
+          element={<LandingPage isAuthenticated={isAuthenticated} />} />
         {/* <Route
             path='/home'
           element={<Gallery token={token} />} /> */}
