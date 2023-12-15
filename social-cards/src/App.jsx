@@ -10,10 +10,14 @@ import Registration from './components/Registration';
 import Navbar from './components/Navbar';
 import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
 import CreateCard from './components/createCard';
+import PrivateRoute from './components/PrivateRoute';
+
 
 function App() {
   const [username, setUsername] = useState('');
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
+  const [token, setToken] = useLocalStorageState("Token", "");
+  const isAuthenticated = token !== "";
   const [cards, setCards] = useState([]);
 
   const setAuth = (username, token) => {
@@ -22,14 +26,15 @@ function App() {
     console.log(token);
   }
 
-
+  console.log('showing token outside of Auth: ', token);
   return (
     <>
-      <Navbar />
+      <Navbar isAuthenticated={isAuthenticated} setToken={setToken} />
+      {/* <Navbar token={token} setToken={setToken} /> */}
       <Routes>
         <Route
           path='/'
-          element={<LandingPage />} />
+          element={<LandingPage isAuthenticated={isAuthenticated} />} />
         {/* <Route
             path='/home'
           element={<Gallery token={token} />} /> */}
@@ -45,20 +50,24 @@ function App() {
         <Route
             path='newCard'
             element={<CreateCard token={token} />} />
-      </Routes>
+        {/* <Route
+          path='/logout'
+          element={
+            <PrivateRoute
+              setToken={setToken}
+              setUsername={setUsername}
+              username={username}
+            >
+              <Logout setUsername={setUsername} setToken={setToken} />
+            </PrivateRoute>
+          } */}
+        {/* ></Route> */}
+      </Routes >
     </>
 
 
   );
 
-
-  //   return (
-  //     <>
-  //       <h1>Social Cards</h1>
-  //       <Login setAuth={setAuth} />
-  //       {/* <Registration /> */}
-  //     </>
-  //   )
 };
 
 export default App;
