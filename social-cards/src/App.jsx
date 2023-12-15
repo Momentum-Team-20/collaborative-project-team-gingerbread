@@ -3,7 +3,10 @@ import CreateCard from './components/CreateCard'
 
 function App() {
 
-  return (<CreateCard/>)
+
+  return (
+  <CreateCard/>
+  )
 
 }
 

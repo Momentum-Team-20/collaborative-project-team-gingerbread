@@ -18,19 +18,6 @@ const [font, setFont] = useState('');
 // console.log('front text is', frontText)
 
 
-// useEffect(() => {
-//     axios
-//         .get('', {
-//             headers: {
-//                 Authorization: `Token ${token}`,
-//             },
-//         })
-//         .then((res) => {
-            
-
-//         })
-// })
-
     return (
         <div>
             <div className="makeACard">
@@ -71,14 +58,25 @@ const [font, setFont] = useState('');
                 backgroundColor={backgroundColor}
                 uploadImage={uploadImage}
                 />
-            <button type="button">Publish</button>
+            <button type="button" onClick={handlePublish}>Publish</button>
             </div>
             </div>
         </div>
     )
- 
+
+        
+}
 
 
+
+const handlePublish = (e) => {
+    e.preventdefault()
+    axios  
+        .post('https://social-cards.fly.dev/api/cards/', {
+            username: username,
+            password: password,
+        })
+        .then((res) => setAuth(username, res.data.auth_token))
 }
 
 export default CreateCard
