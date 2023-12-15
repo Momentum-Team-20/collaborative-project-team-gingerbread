@@ -14,6 +14,15 @@ const [backgroundColor, setBackgroundColor] = useState('');
 const [font, setFont] = useState('');
 
 
+const handlePublish = (e) => {
+    e.preventDefault()
+    const config = {
+        headers: { Authorization: `Bearer Token:${token}` }
+    };
+    axios  
+        .post('https://social-cards.fly.dev/api/cards/', {}, config)
+        .then((res) => console.log(res) )
+}
 
 // console.log('front text is', frontText)
 
@@ -73,14 +82,5 @@ const handleFontChange = (e) => {
 
 
 
-const handlePublish = (e) => {
-    e.preventDefault()
-    axios  
-        .post('https://social-cards.fly.dev/api/cards/', {
-            username: username,
-            password: password,
-        })
-        .then((res) => setAuth(username, res.data.auth_token))
-}
 
 export default CreateCard
