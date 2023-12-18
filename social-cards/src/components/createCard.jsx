@@ -7,10 +7,10 @@ import PreviewCard from "./PreviewCard";
 const CreateCard = ({ token, username }) => {
 
     //Form State
-    const [frontText, setFrontText] = useState('');
-    const [backText, setBackText] = useState('');
+    const [front_text, setFrontText] = useState('');
+    const [back_text, setBackText] = useState('');
     const [uploadImage, setUploadImage] = useState('');
-    const [backgroundColor, setBackgroundColor] = useState('');
+    const [background_color, setBackgroundColor] = useState('');
     const [font, setFont] = useState('');
     let labelClassName = "block mb-2 text-sm font-medium text-white-900 dark:text-white text-left";
     let inputClassName = "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2";
@@ -24,10 +24,10 @@ const CreateCard = ({ token, username }) => {
         };
         axios
             .post('https://social-cards.fly.dev/api/cards/', {
-                "front_text": frontText,
-                "back_text": backText,
+                "front_text": front_text,
+                "back_text": back_text,
                 "imageURL": uploadImage,
-                "background_color": backgroundColor,
+                "background_color": background_color,
                 "font": font,
             }, config)
             .then((res) => console.log(res))
@@ -61,7 +61,8 @@ const CreateCard = ({ token, username }) => {
                         <select name="font" onChange={e => {
                             setFont(e.target.value)
                         }} className={inputClassName}>
-                            <option value="Ariel" onSelect={handleFontChange}>Ariel</option>
+                            <option value="Ariel"
+                            >Ariel</option>
                             <option value="Helvetica">Helvetica</option>
                             <option value="Times New Roman">Times New Roman</option>
                         </select>
@@ -70,12 +71,13 @@ const CreateCard = ({ token, username }) => {
 
                 <div className="previewCard">
                     <PreviewCard
-                        username={username}
+                        // username={username}
                         font={font}
-                        frontText={frontText}
-                        backText={backText}
-                        backgroundColor={backgroundColor}
+                        frontText={front_text}
+                        backText={back_text}
+                        background_color={background_color}
                         uploadImage={uploadImage}
+                        creator={this.creator}
                     />
                     <button type="button" onClick={handlePublish}>Publish</button>
                 </div>
@@ -86,9 +88,6 @@ const CreateCard = ({ token, username }) => {
 
 }
 
-const handleFontChange = (e) => {
-
-}
 
 
 
