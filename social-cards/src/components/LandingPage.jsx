@@ -50,10 +50,7 @@ const LandingPage = ({ isAuthenticated }) => {
                     })}
                 </div>
                 // :
-
             }
-
-
         </>
     )
 }
