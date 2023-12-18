@@ -41,10 +41,10 @@ const LandingPage = ({ isAuthenticated }) => {
                             <PreviewCard
                                 key={card.id}
                                 font={card.font}
-                                frontText={card.frontText}
-                                backText={card.backText}
-                                backgroundColor={card.backgroundColor}
-                                uploadImage={card.uploadImage}
+                                frontText={card.front_text}
+                                backText={card.back_text}
+                                backgroundColor={card.background_color}
+                                uploadImage={card.imageURL}
                             />
                         );
                     })}
