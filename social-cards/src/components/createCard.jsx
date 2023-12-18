@@ -4,86 +4,90 @@ import previewCard from "./PreviewCard";
 import PreviewCard from "./PreviewCard";
 
 
-const CreateCard = ({token}) => {
+const CreateCard = ({ token, username }) => {
 
-//Form State
-const [frontText, setFrontText] = useState('');
-const [backText, setBackText] = useState('');
-const [uploadImage, setUploadImage] = useState('');
-const [backgroundColor, setBackgroundColor] = useState('');
-const [font, setFont] = useState('');
+    //Form State
+    const [frontText, setFrontText] = useState('');
+    const [backText, setBackText] = useState('');
+    const [uploadImage, setUploadImage] = useState('');
+    const [backgroundColor, setBackgroundColor] = useState('');
+    const [font, setFont] = useState('');
+    let labelClassName = "block mb-2 text-sm font-medium text-white-900 dark:text-white text-left";
+    let inputClassName = "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2";
 
 
-const handlePublish = (e) => {
-    e.preventDefault()
-    const config = {
-        headers: { Authorization: `Token ${token}` }
-    };
-    axios  
-        .post('https://social-cards.fly.dev/api/cards/', {
-            "front_text": frontText,
-            "back_text": backText,
-            "imageURL": uploadImage,
-            "background_color": backgroundColor,
-            "font": font,
-        }, config)
-        .then((res) => console.log(res) )
-}
 
-// console.log('front text is', frontText)
+    const handlePublish = (e) => {
+        e.preventDefault()
+        const config = {
+            headers: { Authorization: `Token ${token}` }
+        };
+        axios
+            .post('https://social-cards.fly.dev/api/cards/', {
+                "front_text": frontText,
+                "back_text": backText,
+                "imageURL": uploadImage,
+                "background_color": backgroundColor,
+                "font": font,
+            }, config)
+            .then((res) => console.log(res))
+    }
+
+    // console.log('front text is', frontText)
 
 
     return (
         <div>
             <div className="makeACard">
-            <div className="sidebarOptions">
-            <div>
-                <span>Front Text</span>
-                <input type="text"  onChange={(evt) => setFrontText(evt.target.value)}/>
-            </div>
-            <div>
-                <span>Back Text</span>
-                <input type="text" onChange={(evt) => setBackText(evt.target.value)}/>
-            </div>
-            <div>
-                <span>Upload an image</span>
-                <input type="text"/>
-            </div>
-                <div>
-                    <label htmlFor="color">Select a background color</label>
-                    <input name="color" type="color" />
+                <div className="sidebarOptions">
+                    <div>
+                        <span className={labelClassName}>Front Text</span>
+                        <input type="text" onChange={(evt) => setFrontText(evt.target.value)} className={inputClassName} />
+                    </div>
+                    <div>
+                        <span className={labelClassName}>Back Text</span>
+                        <input type="text" onChange={(evt) => setBackText(evt.target.value)} className={inputClassName} />
+                    </div>
+                    <div>
+                        <span className={labelClassName}>Upload an image</span>
+                        <input type="text" className={inputClassName} />
+                    </div>
+                    <div>
+                        <label htmlFor="color" className={labelClassName}>Select a background color</label>
+                        <input name="color" type="color" />
+                    </div>
+                    <div>
+                        <label htmlFor="font" className={labelClassName}>Choose a font</label>
+                        <select name="font" onChange={e => {
+                            setFont(e.target.value)
+                        }} className={inputClassName}>
+                            <option value="Ariel" onSelect={handleFontChange}>Ariel</option>
+                            <option value="Helvetica">Helvetica</option>
+                            <option value="Times New Roman">Times New Roman</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="font">Choose a font</label>
-                    <select name="font" onChange={e => {
-                        setFont(e.target.value)
-                    }}>
-                        <option value="Ariel" onSelect={handleFontChange}>Ariel</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Times New Roman">Times New Roman</option>
-                    </select>
-                </div>
-            </div>
 
-            <div className="previewCard">
-                <PreviewCard 
-                font={font}
-                frontText={frontText}
-                backText={backText}
-                backgroundColor={backgroundColor}
-                uploadImage={uploadImage}
-                />
-            <button type="button" onClick={handlePublish}>Publish</button>
+                <div className="previewCard">
+                    <PreviewCard
+                        username={username}
+                        font={font}
+                        frontText={frontText}
+                        backText={backText}
+                        backgroundColor={backgroundColor}
+                        uploadImage={uploadImage}
+                    />
+                    <button type="button" onClick={handlePublish}>Publish</button>
+                </div>
             </div>
-            </div>
-        </div>
+        </div >
     )
 
-        
+
 }
 
 const handleFontChange = (e) => {
-    
+
 }
 
 

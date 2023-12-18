@@ -48,8 +48,8 @@ function App() {
             path='/profile'
             element={<Profile token={token} />} /> */}
         <Route
-            path='newCard'
-            element={<CreateCard token={token} />} />
+          path='/newCard'
+          element={<CreateCard token={token} username={username} />} />
         {/* <Route
           path='/logout'
           element={
