@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Login from './Login';
-import Registration from './Registration';
 import PreviewCard from './PreviewCard';
 
 const LandingPage = ({ isAuthenticated }) => {
