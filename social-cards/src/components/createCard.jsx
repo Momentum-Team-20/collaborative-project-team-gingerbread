@@ -11,7 +11,12 @@ const [frontText, setFrontText] = useState('');
 const [backText, setBackText] = useState('');
 const [uploadImage, setUploadImage] = useState('');
 const [backgroundColor, setBackgroundColor] = useState('');
-const [font, setFont] = useState('');
+const [font, setFont] = useState('Rubik Doodle Shadow');
+
+
+const selectColor = (e) => {
+    setBackgroundColor(e.target.value)
+}
 
 
 const handlePublish = (e) => {
@@ -51,16 +56,19 @@ const handlePublish = (e) => {
             </div>
                 <div>
                     <label htmlFor="color">Select a background color</label>
-                    <input name="color" type="color" />
+                    <input name="color" type="color" onChange={selectColor} />
                 </div>
                 <div>
                     <label htmlFor="font">Choose a font</label>
                     <select name="font" onChange={e => {
                         setFont(e.target.value)
                     }}>
-                        <option value="Ariel" onSelect={handleFontChange}>Ariel</option>
-                        <option value="Helvetica">Helvetica</option>
-                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Rubik Doodle Shadow">Rubik Doodle Shadow</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Bebas Neue">Bebas Neue</option>
+                        <option value="Playfair Display">Playfair Display</option>
+                        <option value="Roboto">Roboto</option>
+
                     </select>
                 </div>
             </div>
@@ -82,9 +90,7 @@ const handlePublish = (e) => {
         
 }
 
-const handleFontChange = (e) => {
-    
-}
+
 
 
 
