@@ -54,7 +54,6 @@ const LandingPage = ({ isAuthenticated }) => {
             }
 
 
-            <h1 >hello</h1>
         </>
     )
 }
