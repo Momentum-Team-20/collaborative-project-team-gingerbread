@@ -3,18 +3,21 @@ import axios from 'axios'
 
 const PreviewCard = ({font, frontText, backText, uploadImage, backgroundColor }) => {
     return (
-    <div className="previewDisplay" style={{
+    <div className="frontCardPreview" style={{
         backgroundColor : backgroundColor,
         fontFamily : font
     }
         }>
-        {`Here's your preview:
+        {`Front text goes here:
         ${font}
         ${backgroundColor}`}
     <div className='frontTextDisplay'>{`${frontText}`}</div>
     <div className='backTextDisplay'>{`${backText}`}</div>
-    </div>)
+    </div>  
+    )
 }
 
+
 export default PreviewCard
+
 

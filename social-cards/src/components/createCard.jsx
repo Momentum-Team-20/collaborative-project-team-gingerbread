@@ -44,7 +44,7 @@ const handlePublish = (e) => {
             <div className="sidebarOptions">
             <div>
                 <span>Front Text</span>
-                <input type="text"  onChange={(evt) => setFrontText(evt.target.value)}/>
+                <input type="text" onChange={(evt) => setFrontText(evt.target.value)}/>
             </div>
             <div>
                 <span>Back Text</span>
@@ -73,7 +73,7 @@ const handlePublish = (e) => {
                 </div>
             </div>
 
-            <div className="previewCard">
+            <div className="PreviewCard">
                 <PreviewCard 
                 font={font}
                 frontText={frontText}
