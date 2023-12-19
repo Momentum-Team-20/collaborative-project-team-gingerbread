@@ -30,6 +30,7 @@ const LandingPage = ({ isAuthenticated }) => {
                                 backgroundColor={card.background_color}
                                 uploadImage={card.uploadImage}
                                 creator={card.creator}
+                                creatorID={card.creator_id}
                             />
                         );
                     })}

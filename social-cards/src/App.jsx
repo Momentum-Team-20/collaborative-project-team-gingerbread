@@ -8,7 +8,7 @@ import Login from './components/Login';
 import LandingPage from './components/LandingPage'
 import Registration from './components/Registration';
 import Navbar from './components/Navbar';
-import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import CreateCard from './components/createCard';
 import PrivateRoute from './components/PrivateRoute';
 
