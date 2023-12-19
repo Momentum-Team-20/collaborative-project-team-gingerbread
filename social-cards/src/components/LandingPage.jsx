@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import PreviewCard from './PreviewCard';
+import PreviewCard from './FrontOfCard';
 
 const LandingPage = ({ isAuthenticated }) => {
 

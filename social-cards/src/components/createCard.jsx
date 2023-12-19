@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'
-import previewCard from "./PreviewCard";
-import PreviewCard from "./PreviewCard";
+import FrontOfCard from "./FrontOfCard";
+import BackOfCard from "./BackOfCard.jsx";
+
 
 
 const CreateCard = ({token}) => {
@@ -72,17 +73,26 @@ const handlePublish = (e) => {
                     </select>
                 </div>
             </div>
-
+            <div className="PreviewContainer"> 
             <div className="PreviewCard">
-                <PreviewCard 
+                <FrontOfCard
                 font={font}
                 frontText={frontText}
                 backText={backText}
                 backgroundColor={backgroundColor}
                 uploadImage={uploadImage}
                 />
-            <button type="button" onClick={handlePublish}>Publish</button>
             </div>
+            <div className="backofCard">
+                <BackOfCard
+                font={font}
+                backText={backText}
+                backgroundColor={backgroundColor}
+                uploadImage={uploadImage}
+                />
+            </div>
+            </div>
+            <button type="button" onClick={handlePublish}>Publish</button>
             </div>
         </div>
     )
