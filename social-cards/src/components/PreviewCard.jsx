@@ -1,15 +1,19 @@
-import { useState } from 'react'
-import axios from 'axios'
+const PreviewCard = ({ font, frontText, backText, uploadImage, backgroundColor, }) => {
 
-const PreviewCard = ({font, frontText, backText, uploadImage, backgroundColor }) => {
+
+    const styles = {
+        backgroundColor: `${backgroundColor}`,
+        fontFamily: `${font}, "sans-seriff"`
+    }
     return (
-    <div className="previewDisplay">
-        {`Here's your preview:
-        ${font}
-        ${backgroundColor}`}
-    <div className='frontTextDisplay'>{`${frontText}`}</div>
-    <div className='backTextDisplay'>{`${backText}`}</div>
-    </div>)
+        <div className={`${backgroundColor} previewDisplay mb-4`} style={styles}>
+            {`Here's your preview:
+                    ${font}
+                    ${backgroundColor}`}
+            <div className='frontTextDisplay' >front text: {`${frontText}`}</div>
+            <div className='backTextDisplay'>back text: {`${backText}`}</div>
+        </div >
+    )
 }
 
-export default PreviewCard
+export default PreviewCard;
