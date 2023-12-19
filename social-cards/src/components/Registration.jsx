@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { Route, Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PasswordChecklist from "react-password-checklist";
 
 

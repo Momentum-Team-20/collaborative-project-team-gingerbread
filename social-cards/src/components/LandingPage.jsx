@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PreviewCard from './PreviewCard';
 import FollowUser from './FollowUser';
+import Sidebar from './Sidebar'
 
 const LandingPage = ({ isAuthenticated, token }) => {
 

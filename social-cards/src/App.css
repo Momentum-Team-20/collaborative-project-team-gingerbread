@@ -48,6 +48,7 @@
 body {
   margin: 0;
   padding: 0;
+  display: inline !important;
 }
 
 /* positions icons to the right side of the card */
