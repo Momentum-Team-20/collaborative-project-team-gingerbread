@@ -5,9 +5,11 @@ import BackOfCard from "./BackOfCard.jsx";
 
 
 
-const CreateCard = ({token, match }) => {
+const CreateCard = ({token, cardPK }) => {
 
-console.log(match)
+//if cardPK exists - do edit (use patch)
+//if cardPK does not exist - do create (use post )
+console.log()
 
 //Form State
 const [frontText, setFrontText] = useState('');
@@ -27,6 +29,12 @@ const handlePublish = (e) => {
     const config = {
         headers: { Authorization: `Token ${token}` }
     };
+
+//if cardPK exists - do edit (use patch)
+//if cardPK does not exist - do create (use post )
+
+
+    // PATCH : /api/cards/{card_pk}/styles/edit/ 
     axios  
         .post('https://social-cards.fly.dev/api/cards/', {
             "front_text": frontText,
