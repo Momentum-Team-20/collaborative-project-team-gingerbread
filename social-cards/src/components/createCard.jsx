@@ -3,13 +3,12 @@ import axios from 'axios'
 import FrontOfCard from "./FrontOfCard";
 import BackOfCard from "./BackOfCard.jsx";
 
+import { useParams } from 'react-router-dom';
 
+const CreateCard = ({token}) => {
 
-const CreateCard = ({token, cardPK }) => {
+    const { card_id } = useParams();
 
-//if cardPK exists - do edit (use patch)
-//if cardPK does not exist - do create (use post )
-console.log()
 
 //Form State
 const [frontText, setFrontText] = useState('');
@@ -17,12 +16,43 @@ const [backText, setBackText] = useState('');
 const [uploadImage, setUploadImage] = useState('');
 const [backgroundColor, setBackgroundColor] = useState('');
 const [font, setFont] = useState('Rubik Doodle Shadow');
+const [flip, setFlip] = useState(false)
+
+
+useEffect(()=>{
+    if(card_id) {
+        const config = {
+            headers: { Authorization: `Token ${token}` }
+        };
+        axios.get(`https://social-cards.fly.dev/api/cards/${card_id}/`).then((res)=>{
+            const { data } = res;
+            setFrontText(data.front_text);
+            setBackText(data.back_text);
+            setUploadImage(data.imageURL);
+            setFont(data.font)
+            setBackgroundColor(data.background_color);
+        },config);
+    }
+
+},[card_id])
+
+
 
 
 const selectColor = (e) => {
     setBackgroundColor(e.target.value)
 }
 
+const handleDelete = (e) => {
+    e.preventDefault()
+    const config = {
+        headers: { Authorization: `Token ${token}` }
+    };
+
+    axios.delete(`https://social-cards.fly.dev/api/cards/${card_id}/`, config).then((res) => {
+        console.log('deleted')
+    })
+}
 
 const handlePublish = (e) => {
     e.preventDefault()
@@ -30,20 +60,35 @@ const handlePublish = (e) => {
         headers: { Authorization: `Token ${token}` }
     };
 
-//if cardPK exists - do edit (use patch)
-//if cardPK does not exist - do create (use post )
+    
 
+//if cardid exists - do edit (use patch) https://social-cards.fly.dev/api/cards/23/
+//if cardid does not exist - do create (use post )
+    if(card_id) {
+    axios.put(`https://social-cards.fly.dev/api/cards/${card_id}/`, {
+        "front_text": frontText,
+        "back_text": backText,
+        "imageURL": uploadImage,
+        "background_color": backgroundColor,
+        "font": font,
+    }, config)
+    .then((res) => console.log(res) )
+    } else {
+    axios.post('https://social-cards.fly.dev/api/cards/', {
+        "front_text": frontText,
+        "back_text": backText,
+        "imageURL": uploadImage,
+        "background_color": backgroundColor,
+        "font": font,
+    }, config)
+    .then((res) => console.log(res) )
+        // do create 
+    }
+}
 
-    // PATCH : /api/cards/{card_pk}/styles/edit/ 
-    axios  
-        .post('https://social-cards.fly.dev/api/cards/', {
-            "front_text": frontText,
-            "back_text": backText,
-            "imageURL": uploadImage,
-            "background_color": backgroundColor,
-            "font": font,
-        }, config)
-        .then((res) => console.log(res) )
+console.log(flip)
+const flipCard = (e) => {
+    setFlip(!flip)
 }
 
 // console.log('front text is', frontText)
@@ -55,11 +100,11 @@ const handlePublish = (e) => {
             <div className="sidebarOptions">
             <div>
                 <span>Front Text</span>
-                <input type="text" onChange={(evt) => setFrontText(evt.target.value)}/>
+                <input type="text" value={frontText} onChange={(evt) => setFrontText(evt.target.value)}/>
             </div>
             <div>
                 <span>Back Text</span>
-                <input type="text" onChange={(evt) => setBackText(evt.target.value)}/>
+                <input type="text" value={backText} onChange={(evt) => setBackText(evt.target.value)}/>
             </div>
             <div>
                 <span>Upload an image</span>
@@ -67,11 +112,11 @@ const handlePublish = (e) => {
             </div>
                 <div>
                     <label htmlFor="color">Select a background color</label>
-                    <input name="color" type="color" onChange={selectColor} />
+                    <input value={backgroundColor} name="color" type="color" onChange={selectColor} />
                 </div>
                 <div>
                     <label htmlFor="font">Choose a font</label>
-                    <select name="font" onChange={e => {
+                    <select value={font} name="font" onChange={e => {
                         setFont(e.target.value)
                     }}>
                         <option value="Rubik Doodle Shadow">Rubik Doodle Shadow</option>
@@ -83,17 +128,17 @@ const handlePublish = (e) => {
                     </select>
                 </div>
             </div>
-            <div className="PreviewContainer"> 
-            <div className="PreviewCard">
-                <FrontOfCard
+            <div className="PreviewContainer" onClick={flipCard}> 
+            <div>
+                {(!flip) && <FrontOfCard 
                 font={font}
                 frontText={frontText}
                 backText={backText}
                 backgroundColor={backgroundColor}
                 uploadImage={uploadImage}
-                />
-            </div>
-            <div className="backofCard">
+                />}
+            </div> {"\n"}
+            {flip &&  <div>
                 <BackOfCard
                 font={font}
                 backText={backText}
@@ -101,8 +146,11 @@ const handlePublish = (e) => {
                 uploadImage={uploadImage}
                 />
             </div>
+            }
             </div>
+            
             <button type="button" onClick={handlePublish}>Publish</button>
+            {card_id && <button type="button" onClick={handleDelete}>Delete</button>}
             </div>
         </div>
     )
