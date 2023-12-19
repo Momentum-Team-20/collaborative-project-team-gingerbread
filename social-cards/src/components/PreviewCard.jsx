@@ -11,9 +11,22 @@ const PreviewCard = ({ font, frontText, backText, uploadImage, backgroundColor, 
         backgroundColor: `${backgroundColor}`,
         fontFamily: `${font}, "sans-seriff"`
     }
-    const [follow, setFollow] = useState(false);
+    const [isFollowing, setIsFollowing] = useState([]);
     const navigate = useNavigate();
 
+    // get's list of followers
+    useEffect(() => {
+        axios
+            .get("https://social-cards.fly.dev/api/users/followed", {
+                headers: { Authorization: `Token ${token}` },
+            })
+            .then((response) => {
+                console.log("hello", response.data.results)
+                setIsFollowing(response.data.results);
+            });
+    }, [token]);
+
+    // handles user clicking follow button. adds selected user to followers list and posts to api
     const handleFollow = (creatorID) => {
         const followedUserId = parseInt(creatorID);
 
@@ -30,10 +43,13 @@ const PreviewCard = ({ font, frontText, backText, uploadImage, backgroundColor, 
             )
             .then((results) => {
                 console.log("this is follower results", results);
-                setFollow(true)
+                navigate("/");
+                // window.location.reload();
+                // setIsFollowing(true)
             });
     };
 
+    // handles unfollowing user. removes selected user from followers list and deletes from DB
     const handleUnfollow = (creatorID) => {
 
         axios.delete(`https://social-cards.fly.dev/api/unfollow/${creatorID}`, {
@@ -42,10 +58,15 @@ const PreviewCard = ({ font, frontText, backText, uploadImage, backgroundColor, 
             },
         })
             .then((res) => {
-                navigate("/");
+                // setIsFollowing(false)
+                navigate('/');
+                // window.location.reload();
             })
     }
 
+    const isUserFollowing = (creatorId) => {
+        return isFollowing.some((user) => user.id === creatorId)
+    }
 
     console.log(`creator: ${creator}`)
     return (
@@ -58,29 +79,48 @@ const PreviewCard = ({ font, frontText, backText, uploadImage, backgroundColor, 
                     <p >{`${creator}`}</p>
                 </div>
                 <div>
-                    {!follow ?
-                        // follow symbol
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50" onClick={() => handleFollow(creatorID)} className='basis-1/5'>
-                            <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-                        </svg>
-                        :
-                        // check symbol
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50" onClick={() => handleUnfollow(creatorID)}>
-                            <path d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z"></path>
-                        </svg>
-                    }
-                </div>
-            </div>
+                    {/* {!isUserFollowing(creatorID) ? (
+                        <button
+                            onClick={() => handleFollow(creatorID)}
+                            className='follow-button'
+                        >
+                            Follow
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => handleUnfollow(creatorID)}
+                            className='unfollow-button'
+                        >
+                            Unfollow
+                        </button>
+                    )}
+                </div> */}
+                    <div>
+                        {!isUserFollowing(creatorID) ?
+                            // follow symbol
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" onClick={() => handleFollow(creatorID)} className='basis-1/5 ml-5'>
+                                <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+                            </svg>
+                            :
+                            // delete/unfollow symbol
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48" onClick={() => handleUnfollow(creatorID)} className='basis-1/5 ml-5'>
+                                <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+                            </svg>
 
-            <div className={`${backgroundColor} previewDisplay mb-4`} style={styles}>
-                {`Here's your preview:
+                        }
+                    </div>
+                </div>
+
+                <div className={`${backgroundColor} previewDisplay mb-4`} style={styles}>
+                    {`Here's your preview:
                     ${font}
                     ${backgroundColor}`}
-                <div className='frontTextDisplay' >front text: {`${frontText}`}</div>
-                <div className='backTextDisplay'>back text: {`${backText}`}</div>
-            </div >
-        </div>
+                    <div className='frontTextDisplay' >front text: {`${frontText}`}</div>
+                    <div className='backTextDisplay'>back text: {`${backText}`}</div>
+                </div >
+            </div>
+        </div >
     )
 }
 
-export default PreviewCard
+export default PreviewCard;

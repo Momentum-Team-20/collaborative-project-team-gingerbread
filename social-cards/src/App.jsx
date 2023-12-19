@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<LandingPage isAuthenticated={isAuthenticated} />} />
+          element={<LandingPage isAuthenticated={isAuthenticated} token={token} />} />
         {/* <Route
             path='/home'
           element={<Gallery token={token} />} /> */}

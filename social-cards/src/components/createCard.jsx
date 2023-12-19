@@ -78,6 +78,7 @@ const CreateCard = ({ token, username }) => {
                         background_color={background_color}
                         uploadImage={uploadImage}
                         creator={this.creator}
+                        token={token}
                     />
                     <button type="button" onClick={handlePublish}>Publish</button>
                 </div>

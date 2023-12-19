@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import PreviewCard from './PreviewCard';
 
-const LandingPage = ({ isAuthenticated }) => {
+const LandingPage = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
 
@@ -17,43 +17,23 @@ const LandingPage = ({ isAuthenticated }) => {
 
     return (
         <>
-            {!isAuthenticated ?
-                <div>
-                    <h1> Log in please</h1>
-                    {cards.map((card) => {
-                        return (
-                            <PreviewCard
-                                key={card.id}
-                                font={card.font}
-                                frontText={card.frontText}
-                                backText={card.backText}
-                                backgroundColor={card.background_color}
-                                uploadImage={card.uploadImage}
-                                creator={card.creator}
-                                creatorID={card.creator_id}
-                            />
-                        );
-                    })}
-                </div>
-                :
-                <div>
-                    <h1> you have been logged in</h1>
-                    {cards.map((card) => {
-                        return (
-                            <PreviewCard
-                                key={card.id}
-                                font={card.font}
-                                frontText={card.front_text}
-                                backText={card.back_text}
-                                backgroundColor={card.background_color}
-                                uploadImage={card.uploadImage}
-                                creator={card.creator}
-                            />
-                        );
-                    })}
-                </div>
-                // :
-            }
+            <div>
+                {cards.map((card) => {
+                    return (
+                        <PreviewCard
+                            key={card.id}
+                            font={card.font}
+                            frontText={card.front_text}
+                            backText={card.back_text}
+                            backgroundColor={card.background_color}
+                            uploadImage={card.uploadImage}
+                            token={token}
+                            creator={card.creator}
+                            creatorID={card.creator_id}
+                        />
+                    );
+                })}
+            </div>
         </>
     )
 }
