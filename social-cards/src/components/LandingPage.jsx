@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import PreviewCard from './FrontOfCard';
+import FrontOfCard from './FrontOfCard';
+import { Link } from 'react-router-dom';
 
 const LandingPage = ({ isAuthenticated }) => {
 
@@ -21,15 +22,16 @@ const LandingPage = ({ isAuthenticated }) => {
                 <div>
                     <h1> Log in please</h1>
                     {cards.map((card) => {
-                        return (
-                            <PreviewCard
-                                key={card.id}
+                        return (<Link key={card.id} to={`/editCard/${card.id}`}>
+                            <FrontOfCard
+                                
                                 font={card.font}
                                 frontText={card.frontText}
                                 backText={card.backText}
                                 backgroundColor={card.backgroundColor}
                                 uploadImage={card.uploadImage}
                             />
+                            </Link>
                         );
                     })}
                 </div>
@@ -38,7 +40,8 @@ const LandingPage = ({ isAuthenticated }) => {
                     <h1> you have been logged in</h1>
                     {cards.map((card) => {
                         return (
-                            <PreviewCard
+                            <Link key={card.id} to={`/editCard/${card.id}`}>
+                            <FrontOfCard
                                 key={card.id}
                                 font={card.font}
                                 frontText={card.front_text}
@@ -46,6 +49,7 @@ const LandingPage = ({ isAuthenticated }) => {
                                 backgroundColor={card.background_color}
                                 uploadImage={card.imageURL}
                             />
+                            </Link>
                         );
                     })}
                 </div>

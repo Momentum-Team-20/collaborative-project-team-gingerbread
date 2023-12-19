@@ -5,7 +5,9 @@ import BackOfCard from "./BackOfCard.jsx";
 
 
 
-const CreateCard = ({token}) => {
+const CreateCard = ({token, match }) => {
+
+console.log(match)
 
 //Form State
 const [frontText, setFrontText] = useState('');

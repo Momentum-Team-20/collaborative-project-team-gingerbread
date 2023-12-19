@@ -50,6 +50,9 @@ function App() {
         <Route
             path='newCard'
             element={<CreateCard token={token} />} />
+        <Route
+            path='editCard/:card_pk'
+            element={<CreateCard token={token} />} />
         {/* <Route
           path='/logout'
           element={
