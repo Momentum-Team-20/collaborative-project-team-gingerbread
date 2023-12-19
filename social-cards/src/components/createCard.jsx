@@ -137,7 +137,7 @@ const flipCard = (e) => {
                 backgroundColor={backgroundColor}
                 uploadImage={uploadImage}
                 />}
-            </div> {"\n"}
+            </div> 
             {flip &&  <div>
                 <BackOfCard
                 font={font}
