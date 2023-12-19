@@ -1,15 +1,32 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const FollowUser = ({ token }) => {
+const FollowUser = ({ token, creator, creatorID }) => {
 
-    const [follow, setFollow] = useState(false);
+    const [isFollowing, setIsFollowing] = useState([]);
+    const navigate = useNavigate();
 
-    const handleFollow = ({ token, creatorID }) => {
+    // get's list of followers
+    useEffect(() => {
+        axios
+            .get("https://social-cards.fly.dev/api/users/followed", {
+                headers: { Authorization: `Token ${token}` },
+            })
+            .then((response) => {
+                // console.log("hello", response.data.results)
+                setIsFollowing(response.data.results);
+            });
+    }, [token]);
+
+    // handles user clicking follow button. adds selected user to followers list and posts to api
+    const handleFollow = (creatorID) => {
+        const followedUserId = parseInt(creatorID);
+
         axios
             .post("https://social-cards.fly.dev/api/follows/", {
                 status: 1,
-                followed_user: creatorID,
+                followed_user: followedUserId,
             },
                 {
                     headers: {
@@ -18,42 +35,61 @@ const FollowUser = ({ token }) => {
                 }
             )
             .then((results) => {
-                console.log("this is follower results", results);
-                setFollow(true)
-            }, []);
-
-        return (
-            <>
-                {follow ?
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
-                        <path d="M 41.9375 8.625 C 41.273438 8.648438 40.664063 9 40.3125 9.5625 L 21.5 38.34375 L 9.3125 27.8125 C 8.789063 27.269531 8.003906 27.066406 7.28125 27.292969 C 6.5625 27.515625 6.027344 28.125 5.902344 28.867188 C 5.777344 29.613281 6.078125 30.363281 6.6875 30.8125 L 20.625 42.875 C 21.0625 43.246094 21.640625 43.410156 22.207031 43.328125 C 22.777344 43.242188 23.28125 42.917969 23.59375 42.4375 L 43.6875 11.75 C 44.117188 11.121094 44.152344 10.308594 43.78125 9.644531 C 43.410156 8.984375 42.695313 8.589844 41.9375 8.625 Z"></path>
-                    </svg>
-                    :
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
-                        <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-                    </svg>
-                }
-            </>
-        )
+                // console.log("this is follower results", results);
+                navigate("/");
+                window.location.reload();
+                // setIsFollowing(true)
+            });
     };
 
+    // handles unfollowing user. removes selected user from followers list and deletes from DB
+    const handleUnfollow = (creatorID) => {
 
+        axios.delete(`https://social-cards.fly.dev/api/unfollow/${creatorID}`, {
+            headers: {
+                Authorization: `Token ${token}`,
+            },
+        })
+            .then((res) => {
+                // setIsFollowing(false)
+                navigate('/');
+                window.location.reload();
+            })
+    }
+
+    // checks to see if selected user is currently in following list
+    const isUserFollowing = (creatorId) => {
+        return isFollowing.some((user) => user.id === creatorId)
+    }
 
     return (
-        <>
-            <div>
+        <div className='mt-4'>
+            <div className='' >
+                <div className='header flex my-2 '>
+                    <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex-none">
+                        <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                    </div>
+                    <div className="text-sm font-medium text-white-900 truncate dark:text-white  grow">
+                        <p >{`${creator}`}</p>
+                    </div>
+                    <div className='follow-icons flex-none'>
+                        {!isUserFollowing(creatorID) ?
+                            // follow symbol
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleFollow(creatorID)}>
+                                <path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M21,14h6v20h-6V14z"></path><path fill="#fff" d="M14,21h20v6H14V21z"></path>
+                            </svg>
+                            :
+                            // delete/unfollow symbol
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleUnfollow(creatorID)} className='basis-1/5 ml-5'>
+                                <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
+                            </svg>
 
+                        }
+                    </div>
+                </div>
             </div>
-        </>
+        </div>
     )
-
 }
 
-export default UnfollowUser = ({ token, followedUserPK }) => {
-
-    const [unfollow, setUnfollowUser] = useState(false);
-
-    useEffect(() => {
-        axios.delete(`https://social-cards.fly.dev/api/unfollow/${followedUserPK}/`)
-    })
-}
+export default FollowUser;
