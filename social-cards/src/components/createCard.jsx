@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 import FrontOfCard from "./FrontOfCard";
 import BackOfCard from "./BackOfCard.jsx";
-
 import { useParams } from 'react-router-dom';
 
 const CreateCard = ({token}) => {
@@ -15,6 +14,7 @@ const [frontText, setFrontText] = useState('');
 const [backText, setBackText] = useState('');
 const [uploadImage, setUploadImage] = useState('');
 const [backgroundColor, setBackgroundColor] = useState('');
+const [backBackgroundColor, setBackBackgroundColor] = useState('');
 const [font, setFont] = useState('Rubik Doodle Shadow');
 const [flip, setFlip] = useState(false)
 
@@ -31,6 +31,7 @@ useEffect(()=>{
             setUploadImage(data.imageURL);
             setFont(data.font)
             setBackgroundColor(data.background_color);
+            setBackBackgroundColor(data.back_background_color);
         },config);
     }
 
@@ -39,8 +40,12 @@ useEffect(()=>{
 
 
 
-const selectColor = (e) => {
+const selectFrontColor = (e) => {
     setBackgroundColor(e.target.value)
+}
+
+const selectBackColor = (e) => {
+    setBackBackgroundColor(e.target.value)
 }
 
 const handleDelete = (e) => {
@@ -62,7 +67,7 @@ const handlePublish = (e) => {
 
     
 
-//if cardid exists - do edit (use patch) https://social-cards.fly.dev/api/cards/23/
+//if cardid exists - do edit (use PUT) https://social-cards.fly.dev/api/cards/23/
 //if cardid does not exist - do create (use post )
     if(card_id) {
     axios.put(`https://social-cards.fly.dev/api/cards/${card_id}/`, {
@@ -70,6 +75,7 @@ const handlePublish = (e) => {
         "back_text": backText,
         "imageURL": uploadImage,
         "background_color": backgroundColor,
+        "back_background_color": backBackgroundColor,
         "font": font,
     }, config)
     .then((res) => console.log(res) )
@@ -79,6 +85,7 @@ const handlePublish = (e) => {
         "back_text": backText,
         "imageURL": uploadImage,
         "background_color": backgroundColor,
+        "back_background_color": backBackgroundColor,
         "font": font,
     }, config)
     .then((res) => console.log(res) )
@@ -107,13 +114,11 @@ const flipCard = (e) => {
                 <input type="text" value={backText} onChange={(evt) => setBackText(evt.target.value)}/>
             </div>
             <div>
-                <span>Upload an image</span>
-                <input type="text"/>
+                <label htmlFor="color">Select a background color for the FRONT of your card</label>
+                <input value={backgroundColor} name="color" type="color" onChange={selectFrontColor} />
             </div>
-                <div>
-                    <label htmlFor="color">Select a background color</label>
-                    <input value={backgroundColor} name="color" type="color" onChange={selectColor} />
-                </div>
+                <label htmlFor="color">Select a background color for the BACK of your card</label>
+                <input value={backBackgroundColor} name="color" type="color" onChange={selectBackColor} />
                 <div>
                     <label htmlFor="font">Choose a font</label>
                     <select value={font} name="font" onChange={e => {
@@ -133,17 +138,14 @@ const flipCard = (e) => {
                 {(!flip) && <FrontOfCard 
                 font={font}
                 frontText={frontText}
-                backText={backText}
                 backgroundColor={backgroundColor}
-                uploadImage={uploadImage}
                 />}
             </div> 
             {flip &&  <div>
                 <BackOfCard
                 font={font}
                 backText={backText}
-                backgroundColor={backgroundColor}
-                uploadImage={uploadImage}
+                backBackgroundColor={backBackgroundColor}
                 />
             </div>
             }
