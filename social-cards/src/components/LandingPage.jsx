@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import FrontOfCard from './FrontOfCard';
 import { Link } from 'react-router-dom';
+import FollowUser from './FollowUser';
 
-const LandingPage = ({ isAuthenticated }) => {
+const LandingPage = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
 
@@ -23,6 +24,11 @@ const LandingPage = ({ isAuthenticated }) => {
                     <h1> Log in please</h1>
                     {cards.map((card) => {
                         return (<>
+                        <FollowUser
+                                    token={token}
+                                    creator={card.creator}
+                                    creatorID={card.creator_id}
+                                />
                             <FrontOfCard
                                 font={card.font}
                                 frontText={card.frontText}
@@ -42,6 +48,11 @@ const LandingPage = ({ isAuthenticated }) => {
                     <h1> you have been logged in</h1>
                     {cards.map((card) => {
                         return (<>
+                        <FollowUser
+                                    token={token}
+                                    creator={card.creator}
+                                    creatorID={card.creator_id}
+                                />
                             <FrontOfCard
                                 key={card.id}
                                 font={card.font}
@@ -49,6 +60,9 @@ const LandingPage = ({ isAuthenticated }) => {
                                 backText={card.back_text}
                                 backgroundColor={card.background_color}
                                 uploadImage={card.imageURL}
+                                token={token}
+                                creator={card.creator}
+                                creatorID={card.creator_id}
                             />
                             <Link key={card.id} to={`/editCard/${card.id}`}>
                                 <button>Edit Card</button>

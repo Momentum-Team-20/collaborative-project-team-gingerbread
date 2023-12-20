@@ -8,8 +8,8 @@ import Login from './components/Login';
 import LandingPage from './components/LandingPage'
 import Registration from './components/Registration';
 import Navbar from './components/Navbar';
-import { Route, Routes, Link, useParams, useNavigate } from 'react-router-dom';
-import CreateCard from './components/CreateCard';
+import { Route, Routes } from 'react-router-dom';
+import CreateCard from './components/createCard';
 import PrivateRoute from './components/PrivateRoute';
 
 
@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={<LandingPage isAuthenticated={isAuthenticated} />} />
+          element={<LandingPage isAuthenticated={isAuthenticated} token={token} />} />
         {/* <Route
             path='/home'
           element={<Gallery token={token} />} /> */}
@@ -48,11 +48,11 @@ function App() {
             path='/profile'
             element={<Profile token={token} />} /> */}
         <Route
-            path='newCard'
-            element={<CreateCard token={token} />} />
+            path='/newCard'
+            element={<CreateCard token={token} username={username}/>} />
         <Route
-            path='editCard/:card_id'
-            element={<CreateCard token={token} />} />
+            path='/editCard/:card_id'
+            element={<CreateCard token={token} username={username} />} />
         {/* <Route
           path='/logout'
           element={

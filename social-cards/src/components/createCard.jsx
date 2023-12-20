@@ -4,10 +4,9 @@ import FrontOfCard from "./FrontOfCard";
 import BackOfCard from "./BackOfCard.jsx";
 import { useParams } from 'react-router-dom';
 
-const CreateCard = ({token}) => {
+const CreateCard = ({ token, username }) => {
 
     const { card_id } = useParams();
-
 
 //Form State
 const [frontText, setFrontText] = useState('');
@@ -17,6 +16,8 @@ const [backgroundColor, setBackgroundColor] = useState('');
 const [backBackgroundColor, setBackBackgroundColor] = useState('');
 const [font, setFont] = useState('Rubik Doodle Shadow');
 const [flip, setFlip] = useState(false)
+let labelClassName = "block mb-2 text-sm font-medium text-white-900 dark:text-white text-left";
+let inputClassName = "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light mb-2";
 
 
 useEffect(()=>{
@@ -65,8 +66,6 @@ const handlePublish = (e) => {
         headers: { Authorization: `Token ${token}` }
     };
 
-    
-
 //if cardid exists - do edit (use PUT) https://social-cards.fly.dev/api/cards/23/
 //if cardid does not exist - do create (use post )
     if(card_id) {
@@ -93,12 +92,13 @@ const handlePublish = (e) => {
     }
 }
 
-console.log(flip)
+console.log(flip, 'is flippe')
 const flipCard = (e) => {
     setFlip(!flip)
 }
 
-// console.log('front text is', frontText)
+
+    // console.log('front text is', frontText)
 
 
     return (
@@ -139,6 +139,7 @@ const flipCard = (e) => {
                 font={font}
                 frontText={frontText}
                 backgroundColor={backgroundColor}
+                token={token}
                 />}
             </div> 
             {flip &&  <div>
@@ -155,11 +156,11 @@ const flipCard = (e) => {
             {card_id && <button type="button" onClick={handleDelete}>Delete</button>}
             </div>
         </div>
+
     )
 
-        
-}
 
+}
 
 
 
