@@ -29,7 +29,7 @@ function App() {
   console.log('showing token outside of Auth: ', token);
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} setToken={setToken} />
+      <Navbar isAuthenticated={isAuthenticated} setToken={setToken} token={token} username={username} />
       {/* <Navbar token={token} setToken={setToken} /> */}
       <Routes>
         <Route
@@ -50,18 +50,10 @@ function App() {
         <Route
           path='/newCard'
           element={<CreateCard token={token} username={username} />} />
-        {/* <Route
-          path='/logout'
-          element={
-            <PrivateRoute
-              setToken={setToken}
-              setUsername={setUsername}
-              username={username}
-            >
-              <Logout setUsername={setUsername} setToken={setToken} />
-            </PrivateRoute>
-          } */}
-        {/* ></Route> */}
+        <Route
+          path='editCard/:card_id'
+          element={<CreateCard token={token} />} />
+
       </Routes >
     </>
 

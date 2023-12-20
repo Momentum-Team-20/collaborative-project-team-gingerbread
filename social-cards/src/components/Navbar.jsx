@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { FaBars } from "react-icons/fa";
 // import styled from "styled-components";
 
-const Navbar = ({ isAuthenticated, setToken }) => {
+const Navbar = ({ isAuthenticated, setToken, token, username }) => {
 
     const navigate = useNavigate();
     // const Navbar = { isAuthenticated, setToken } => {
@@ -22,7 +22,7 @@ const Navbar = ({ isAuthenticated, setToken }) => {
                 <div className="flex grow"></div>
                 <div className="phone-number flex flex-none items-center rtl:space-x-reverse">
                     <a href="tel:5541251234" className="text-sm text-gray-500 dark:text-white hover:underline">(800) 867-5309</a>
-                    <Link to="/registration">
+                    <Link to='/registration'>
                         <button type="button" className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ml-3">Sign Up</button>
                     </Link>
                     {!isAuthenticated ?
@@ -83,7 +83,7 @@ const Navbar = ({ isAuthenticated, setToken }) => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={{ pathname: "/newCard" }}
+                                    <Link to={{ pathname: "/newCard", state: { token, username } }}
                                         className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                         <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />

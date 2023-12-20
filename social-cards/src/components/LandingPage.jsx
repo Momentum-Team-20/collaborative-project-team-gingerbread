@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import PreviewCard from './PreviewCard';
 import FollowUser from './FollowUser';
-import Sidebar from './Sidebar'
+// import Sidebar from './Sidebar'
+import FrontOfCard from './FrontOfCard';
+import BackOfCard from './BackOfCard';
 
 const LandingPage = ({ isAuthenticated, token }) => {
 
@@ -39,7 +41,27 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                     creator={card.creator}
                                     creatorID={card.creator_id}
                                 />
-                                <PreviewCard
+                                <Link key={card.id} to={`/editCard/${card.id}`}>
+                                    <FrontOfCard
+                                        key={card.id}
+                                        font={card.font}
+                                        frontText={card.front_text}
+                                        // backText={card.back_text}
+                                        uploadImage={card.imageURL}
+                                        backgroundColor={card.background_color}
+                                    />
+                                </Link>
+                                <Link key={card.id} to={`/editCard/${card.id}`}>
+                                    <BackOfCard
+                                        key={card.id}
+                                        font={card.font}
+                                        // frontText={card.front_text}
+                                        backText={card.back_text}
+                                        uploadImage={card.imageURL}
+                                        backgroundColor={card.background_color}
+                                    />
+                                </Link>
+                                {/* <PreviewCard
                                     key={card.id}
                                     font={card.font}
                                     frontText={card.front_text}
@@ -49,7 +71,7 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                     token={token}
                                     creator={card.creator}
                                     creatorID={card.creator_id}
-                                />
+                                />*/}
                             </div>
                         </>
                     );
