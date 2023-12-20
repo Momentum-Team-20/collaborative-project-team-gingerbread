@@ -22,16 +22,18 @@ const LandingPage = ({ isAuthenticated }) => {
                 <div>
                     <h1> Log in please</h1>
                     {cards.map((card) => {
-                        return (<Link key={card.id} to={`/editCard/${card.id}`}>
+                        return (<>
                             <FrontOfCard
-                                
                                 font={card.font}
                                 frontText={card.frontText}
                                 backText={card.backText}
                                 backgroundColor={card.backgroundColor}
                                 uploadImage={card.uploadImage}
                             />
+                            <Link key={card.id} to={`/editCard/${card.id}`}>
+                                <button>Edit Card</button>
                             </Link>
+                            </>
                         );
                     })}
                 </div>
