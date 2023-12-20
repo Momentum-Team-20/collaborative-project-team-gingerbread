@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Route, Link, useNavigate } from 'react-router-dom';
 import PasswordChecklist from "react-password-checklist";
 
 
@@ -30,69 +30,70 @@ const Registration = () => {
             .then(navigate(`/login`))
             // .then((res) => console.log(res))
             .catch((err) => setError(err.response.data.non_field_errors))
-
-
-        return (
-            <>
-                {error && <p style={{ color: 'red' }}> {error} </p>}
-                <h1>Register Account for Free!</h1>
-                <br />
-                <br />
-                <form onSubmit={handleSubmit}>
-                    <div className="form-controls">
-                        <label htmlFor="email-field" className={labelClassName} >Email: </label>
-                        <input
-                            id="email-field"
-                            type="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            className={inputClassName}
-                        />
-                    </div>
-                    <div className="form-controls">
-                        <label htmlFor="username-field" className={labelClassName}>Choose a Username: </label>
-                        <input
-                            id="username-field"
-                            type="text"
-                            onChange={(e) => setUsername(e.target.value)}
-                            className={inputClassName}
-                        />
-                    </div>
-                    <div className="form-controls">
-                        <label htmlFor="password-field" className={labelClassName}>Choose Password: </label>
-                        <input
-                            id="password-field"
-                            type="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            className={inputClassName}
-                        />
-                    </div>
-                    <div className="form-controls">
-                        <label htmlFor="password-again-field" className={labelClassName}>Enter Password Again: </label>
-                        <input
-                            id="password-again-field"
-                            type="password"
-                            onChange={(e) => setPasswordAgain(e.target.value)}
-                            className={inputClassName}
-                        />
-                    </div>
-                    <div className="form-submit">
-                        <button type='submit' className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800 mt-2">
-                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                Register Account
-                            </span>
-                        </button>
-                    </div>
-
-                    <PasswordChecklist
-                        rules={["minLength", "specialChar", "number", "capital", "match"]}
-                        minLength={8}
-                        value={password}
-                        valueAgain={passwordAgain}
-                        onChange={(isValid) => { }}
-                    />
-                </form>
-            </>
-        );
     };
+
+    return (
+        <>
+            {error && <p style={{ color: 'red' }}> {error} </p>}
+            <h1>Register Account for Free!</h1>
+            <br />
+            <br />
+            <form onSubmit={handleSubmit}>
+                <div className="form-controls">
+                    <label htmlFor="email-field" className={labelClassName} >Email: </label>
+                    <input
+                        id="email-field"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={inputClassName}
+                    />
+                </div>
+                <div className="form-controls">
+                    <label htmlFor="username-field" className={labelClassName}>Choose a Username: </label>
+                    <input
+                        id="username-field"
+                        type="text"
+                        onChange={(e) => setUsername(e.target.value)}
+                        className={inputClassName}
+                    />
+                </div>
+                <div className="form-controls">
+                    <label htmlFor="password-field" className={labelClassName}>Choose Password: </label>
+                    <input
+                        id="password-field"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        className={inputClassName}
+                    />
+                </div>
+                <div className="form-controls">
+                    <label htmlFor="password-again-field" className={labelClassName}>Enter Password Again: </label>
+                    <input
+                        id="password-again-field"
+                        type="password"
+                        onChange={(e) => setPasswordAgain(e.target.value)}
+                        className={inputClassName}
+                    />
+                </div>
+                <div className="form-submit">
+                    <button type='submit' className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800 mt-2">
+                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Register Account
+                        </span>
+                    </button>
+                </div>
+
+                <PasswordChecklist
+                    rules={["minLength", "specialChar", "number", "capital", "match"]}
+                    minLength={8}
+                    value={password}
+                    valueAgain={passwordAgain}
+                    onChange={(isValid) => { }}
+                />
+            </form>
+        </>
+    );
 };
+
+
 export default Registration;

@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import PreviewCard from './PreviewCard';
 import FollowUser from './FollowUser';
-// import Sidebar from './Sidebar'
 import FrontOfCard from './FrontOfCard';
 import BackOfCard from './BackOfCard';
 
@@ -61,17 +59,6 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                         backgroundColor={card.background_color}
                                     />
                                 </Link>
-                                {/* <PreviewCard
-                                    key={card.id}
-                                    font={card.font}
-                                    frontText={card.front_text}
-                                    backText={card.back_text}
-                                    backgroundColor={card.background_color}
-                                    uploadImage={card.uploadImage}
-                                    token={token}
-                                    creator={card.creator}
-                                    creatorID={card.creator_id}
-                                />*/}
                             </div>
                         </>
                     );

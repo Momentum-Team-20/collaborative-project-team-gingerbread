@@ -22,7 +22,7 @@ const Navbar = ({ isAuthenticated, setToken, token, username }) => {
                 <div className="flex grow"></div>
                 <div className="phone-number flex flex-none items-center rtl:space-x-reverse">
                     <a href="tel:5541251234" className="text-sm text-gray-500 dark:text-white hover:underline">(800) 867-5309</a>
-                    <Link to='/registration'>
+                    <Link to="/registration">
                         <button type="button" className="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ml-3">Sign Up</button>
                     </Link>
                     {!isAuthenticated ?
