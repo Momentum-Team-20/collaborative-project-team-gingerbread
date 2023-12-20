@@ -39,25 +39,29 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                     creator={card.creator}
                                     creatorID={card.creator_id}
                                 />
+
+                                <FrontOfCard
+                                    key={card.id}
+                                    font={card.font}
+                                    frontText={card.front_text}
+                                    uploadImage={card.imageURL}
+                                    backgroundColor={card.background_color}
+                                    token={token}
+                                    creator={card.creator}
+                                    creatorID={card.creator_id}
+                                />
+                                <BackOfCard
+                                    key={card.id}
+                                    font={card.font}
+                                    backText={card.back_text}
+                                    uploadImage={card.imageURL}
+                                    backgroundColor={card.background_color}
+                                    token={token}
+                                    creator={card.creator}
+                                    creatorID={card.creator_id}
+                                />
                                 <Link key={card.id} to={`/editCard/${card.id}`}>
-                                    <FrontOfCard
-                                        key={card.id}
-                                        font={card.font}
-                                        frontText={card.front_text}
-                                        // backText={card.back_text}
-                                        uploadImage={card.imageURL}
-                                        backgroundColor={card.background_color}
-                                    />
-                                </Link>
-                                <Link key={card.id} to={`/editCard/${card.id}`}>
-                                    <BackOfCard
-                                        key={card.id}
-                                        font={card.font}
-                                        // frontText={card.front_text}
-                                        backText={card.back_text}
-                                        uploadImage={card.imageURL}
-                                        backgroundColor={card.background_color}
-                                    />
+                                    <button>Edit Card</button>
                                 </Link>
                             </div>
                         </>
