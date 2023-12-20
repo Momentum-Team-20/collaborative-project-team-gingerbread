@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import FrontOfCard from './FrontOfCard';
-import { Link } from 'react-router-dom';
 import FollowUser from './FollowUser';
+import FrontOfCard from './FrontOfCard';
+import BackOfCard from './BackOfCard';
 
 const LandingPage = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios
@@ -19,60 +21,53 @@ const LandingPage = ({ isAuthenticated, token }) => {
 
     return (
         <>
-            {!isAuthenticated ?
-                <div>
-                    <h1> Log in please</h1>
-                    {cards.map((card) => {
-                        return (<>
-                        <FollowUser
+            <div className='flex flex-wrap flex-col md:flex-row gap-4'>
+                <div className="border my-4">
+                    <Link to={{ pathname: '/newCard' }} >
+                        <svg className='flex new-card ' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48" >
+                            <path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M21,14h6v20h-6V14z"></path><path fill="#fff" d="M14,21h20v6H14V21z"></path>
+                        </svg>
+                        <h4>Create New Card</h4>
+                    </Link>
+                </div>
+                {cards.map((card) => {
+                    return (
+                        <>
+                            <div className='cardContainer'>
+                                <FollowUser
                                     token={token}
                                     creator={card.creator}
                                     creatorID={card.creator_id}
                                 />
-                            <FrontOfCard
-                                font={card.font}
-                                frontText={card.frontText}
-                                backText={card.backText}
-                                backgroundColor={card.backgroundColor}
-                                uploadImage={card.uploadImage}
-                            />
-                            <Link key={card.id} to={`/editCard/${card.id}`}>
-                                <button>Edit Card</button>
-                            </Link>
-                            </>
-                        );
-                    })}
-                </div>
-                :
-                <div>
-                    <h1> you have been logged in</h1>
-                    {cards.map((card) => {
-                        return (<>
-                        <FollowUser
+
+                                <FrontOfCard
+                                    key={card.id}
+                                    font={card.font}
+                                    frontText={card.front_text}
+                                    uploadImage={card.imageURL}
+                                    backgroundColor={card.background_color}
                                     token={token}
                                     creator={card.creator}
                                     creatorID={card.creator_id}
                                 />
-                            <FrontOfCard
-                                key={card.id}
-                                font={card.font}
-                                frontText={card.front_text}
-                                backText={card.back_text}
-                                backgroundColor={card.background_color}
-                                uploadImage={card.imageURL}
-                                token={token}
-                                creator={card.creator}
-                                creatorID={card.creator_id}
-                            />
-                            <Link key={card.id} to={`/editCard/${card.id}`}>
-                                <button>Edit Card</button>
-                            </Link>
-                            </>
-                        );
-                    })}
-                </div>
-                // :
-            }
+                                <BackOfCard
+                                    key={card.id}
+                                    font={card.font}
+                                    backText={card.back_text}
+                                    uploadImage={card.imageURL}
+                                    backgroundColor={card.background_color}
+                                    token={token}
+                                    creator={card.creator}
+                                    creatorID={card.creator_id}
+                                />
+                                <Link key={card.id} to={`/editCard/${card.id}`}>
+                                    <button>Edit Card</button>
+                                </Link>
+                            </div>
+                        </>
+                    );
+                })}
+            </div >
         </>
     )
 }

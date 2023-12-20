@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -10,12 +9,10 @@ import Registration from './components/Registration';
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import CreateCard from './components/createCard';
-import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
   const [username, setUsername] = useState('');
-  // const [token, setToken] = useState(null);
   const [token, setToken] = useLocalStorageState("Token", "");
   const isAuthenticated = token !== "";
   const [cards, setCards] = useState([]);
@@ -26,11 +23,9 @@ function App() {
     console.log(token);
   }
 
-  console.log('showing token outside of Auth: ', token);
   return (
     <>
-      <Navbar isAuthenticated={isAuthenticated} setToken={setToken} />
-      {/* <Navbar token={token} setToken={setToken} /> */}
+      <Navbar isAuthenticated={isAuthenticated} setToken={setToken} token={token} username={username} />
       <Routes>
         <Route
           path='/'
@@ -48,29 +43,15 @@ function App() {
             path='/profile'
             element={<Profile token={token} />} /> */}
         <Route
-            path='/newCard'
-            element={<CreateCard token={token} username={username}/>} />
+          path='/newCard'
+          element={<CreateCard token={token} username={username} />} />
         <Route
-            path='/editCard/:card_id'
-            element={<CreateCard token={token} username={username} />} />
-        {/* <Route
-          path='/logout'
-          element={
-            <PrivateRoute
-              setToken={setToken}
-              setUsername={setUsername}
-              username={username}
-            >
-              <Logout setUsername={setUsername} setToken={setToken} />
-            </PrivateRoute>
-          } */}
-        {/* ></Route> */}
+          path='/editCard/:card_id'
+          element={<CreateCard token={token} username={username} />} />
+
       </Routes >
     </>
+  )
+}
 
-
-  );
-
-};
-
-export default App;
+export default App
