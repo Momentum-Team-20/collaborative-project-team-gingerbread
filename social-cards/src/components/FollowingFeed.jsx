@@ -84,7 +84,7 @@ const FollowingFeed = ({ token }) => {
                                     </div>
                                 </>
                                 :
-                                <p></p>
+                                <></>
 
                             }
                         </>
