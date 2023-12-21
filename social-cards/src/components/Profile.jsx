@@ -9,7 +9,12 @@ const Profile = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
     const [isFollowing, setIsFollowing] = useState([]);
+    const [flip, setFlip] = useState(false)
     const navigate = useNavigate();
+
+    const flipCard = (e) => {
+        setFlip(!flip)
+    }
 
     useEffect(() => {
         axios
@@ -54,8 +59,9 @@ return (
             {cards.map((card) => {
                 return (
                     <>
-                        <div className='cardContainer'>
-                            <FrontOfCard
+                        <div className='cardContainer' onClick={flipCard}>
+                            <div> 
+                            {(!flip) && <FrontOfCard
                                 key={card.id}
                                 font={card.font}
                                 frontText={card.front_text}
@@ -64,8 +70,9 @@ return (
                                 token={token}
                                 creator={card.creator}
                                 creatorID={card.creator_id}
-                            />
-                            <BackOfCard
+                            />}
+                            </div>
+                            {flip && <div><BackOfCard
                                 key={card.id}
                                 font={card.font}
                                 backText={card.back_text}
@@ -75,6 +82,7 @@ return (
                                 creator={card.creator}
                                 creatorID={card.creator_id}
                             />
+                            </div>}
                             <Link key={card.id} to={`/editCard/${card.id}`}>
                                 <button>Edit Card</button>
                             </Link>
