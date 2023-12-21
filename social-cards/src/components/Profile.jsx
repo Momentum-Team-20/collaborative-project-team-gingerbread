@@ -8,22 +8,29 @@ import BackOfCard from './BackOfCard';
 const Profile = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
-    const [isFollowing, setIsFollowing] = useState([]);
+    const [count, setCount] = useState(0);
     const [flip, setFlip] = useState(false)
+    const [expanded, setExpanded] = useState(false);
+    const [showFollowers, setShowFollowers] = useState([]);
     const navigate = useNavigate();
 
     const flipCard = (e) => {
         setFlip(!flip)
     }
 
+    const handleFollowerListExpandedClick = () => {
+        setExpanded(!expanded);
+    }
+
     useEffect(() => {
         axios
-            .get("https://social-cards.fly.dev/api/users/followed", {
+            .get("https://social-cards.fly.dev/api/users/followers", {
                 headers: { Authorization: `Token ${token}` },
             })
             .then((response) => {
-                // console.log("hello", response.data.results)
-                setIsFollowing(response.data.results);
+                console.log("hello", response.data.results)
+                setShowFollowers(response.data.results);
+                setCount(response.data.count);
             });
     }, [token]);
 
@@ -48,6 +55,19 @@ const Profile = ({ isAuthenticated, token }) => {
 
 return (
     <>
+        <section>
+        <button onClick={handleFollowerListExpandedClick}>
+                    {expanded ? "Hide Following:" : "Show Following" } </button>
+                    
+                        {expanded && (
+                            <div className="followerList">
+                            {showFollowers.map((follower) => (
+                                <div key={follower.id}>
+                                {follower.username}
+                                </div>))}
+                            </div>   
+                             )}
+        </section>
         <div className='flex flex-wrap flex-col md:flex-row gap-4'>
             <div className="border my-4">
                 <Link to={{ pathname: '/newCard' }} >
