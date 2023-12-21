@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import FollowUser from './FollowUser';
-import FrontOfCard from './FrontOfCard';
-import BackOfCard from './BackOfCard';
 import Card from './Card'
 
 const LandingPage = ({ isAuthenticated, token }) => {
@@ -21,11 +18,6 @@ const LandingPage = ({ isAuthenticated, token }) => {
             })
     }, [])
 
-    // remove after card component implemented
-    const [flip, setFlip] = useState(false)
-    const flipCard = (e) => {
-        setFlip(!flip)
-    }
 
     return (
         <>
@@ -53,41 +45,9 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                 back_background_color={card.back_background_color}
                                 token={token}
                                 creator={card.creator}
-                                creatorID={card.creator_id}
+                                creator_id={card.creator_id}
 
                             />
-                            {/* <div className='cardContainer' onClick={flipCard}>
-                                <FollowUser
-                                    token={token}
-                                    creator={card.creator}
-                                    creatorID={card.creator_id}
-                                />
-
-                                {(!flip) ?
-                                    <FrontOfCard
-                                        key={card.id}
-                                        font={card.font}
-                                        frontText={card.front_text}
-                                        uploadImage={card.imageURL}
-                                        backgroundColor={card.background_color}
-                                        token={token}
-                                        creator={card.creator}
-                                        creatorID={card.creator_id}
-                                    /> :
-                                    <BackOfCard
-                                        key={card.id}
-                                        font={card.font}
-                                        backText={card.back_text}
-                                        uploadImage={card.imageURL}
-                                        backBackgroundColor={card.back_background_color}
-                                        token={token}
-                                        creator={card.creator}
-                                        creatorID={card.creator_id}
-                                    />}
-                                <Link key={card.id} to={`/editCard/${card.id}`}>
-                                    <button>Edit Card</button>
-                                </Link>
-                            </div> */}
                         </>
                     );
                 })}

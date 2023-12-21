@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from 'axios'
-import FrontOfCard from "./FrontOfCard.jsx";
-import BackOfCard from "./BackOfCard.jsx";
+import Card from "./Card.jsx";
 
 import { useParams } from 'react-router-dom';
 
@@ -10,11 +9,13 @@ const CreateCard = ({ token, username }) => {
     const { card_id } = useParams();
 
     //Form State
-    const [frontText, setFrontText] = useState('');
-    const [backText, setBackText] = useState('');
-    const [uploadImage, setUploadImage] = useState('');
-    const [backgroundColor, setBackgroundColor] = useState('');
-    const [backBackgroundColor, setBackBackgroundColor] = useState('');
+    const [front_text, setFrontText] = useState('');
+    const [back_text, setBackText] = useState('');
+    const [imageURL, setImageURL] = useState('');
+    const [front_background_color, setFront_background_color] = useState('');
+    const [back_background_color, setBack_background_color] = useState('');
+    const [creator, setCreator] = useState('');
+    const [creator_id, setCreator_id] = useState(0);
     const [font, setFont] = useState('Rubik Doodle Shadow');
     const [flip, setFlip] = useState(false)
     let labelClassName = "block mb-2 text-sm font-medium text-white-900 dark:text-white text-left";
@@ -30,10 +31,12 @@ const CreateCard = ({ token, username }) => {
                 const { data } = res;
                 setFrontText(data.front_text);
                 setBackText(data.back_text);
-                setUploadImage(data.imageURL);
+                setImageURL(data.imageURL);
                 setFont(data.font)
-                setBackgroundColor(data.background_color);
-                setBackBackgroundColor(data.back_background_color);
+                setFront_background_color(data.background_color);
+                setBack_background_color(data.back_background_color);
+                setCreator(data.creator)
+                setCreator_id(data.creator_id)
             }, config);
         }
 
@@ -43,11 +46,11 @@ const CreateCard = ({ token, username }) => {
 
 
     const selectFrontColor = (e) => {
-        setBackgroundColor(e.target.value)
+        setFront_background_color(e.target.value)
     }
 
     const selectBackColor = (e) => {
-        setBackBackgroundColor(e.target.value)
+        setBack_background_color(e.target.value)
     }
 
     const handleDelete = (e) => {
@@ -71,21 +74,21 @@ const CreateCard = ({ token, username }) => {
         //if cardid does not exist - do create (use post )
         if (card_id) {
             axios.put(`https://social-cards.fly.dev/api/cards/${card_id}/`, {
-                "front_text": frontText,
-                "back_text": backText,
-                "imageURL": uploadImage,
-                "background_color": backgroundColor,
-                "back_background_color": backBackgroundColor,
+                "front_text": front_text,
+                "back_text": back_text,
+                "imageURL": imageURL,
+                "background_color": front_background_color,
+                "back_background_color": back_background_color,
                 "font": font,
             }, config)
                 .then((res) => console.log(res))
         } else {
             axios.post('https://social-cards.fly.dev/api/cards/', {
-                "front_text": frontText,
-                "back_text": backText,
-                "imageURL": uploadImage,
-                "background_color": backgroundColor,
-                "back_background_color": backBackgroundColor,
+                "front_text": front_text,
+                "back_text": back_text,
+                "imageURL": imageURL,
+                "background_color": front_background_color,
+                "back_background_color": back_background_color,
                 "font": font,
             }, config)
                 .then((res) => console.log(res))
@@ -108,18 +111,18 @@ const CreateCard = ({ token, username }) => {
                 <div className="sidebarOptions">
                     <div>
                         <label className={labelClassName} htmlFor="front-text">Front Text</label>
-                        <input type="text" name="front-text" value={frontText} onChange={(evt) => setFrontText(evt.target.value)} className={inputClassName} />
+                        <input type="text" name="front-text" value={front_text} onChange={(evt) => setFrontText(evt.target.value)} className={inputClassName} />
                     </div>
                     <div>
                         <label className={labelClassName} htmlFor="back-text">Back Text</label>
-                        <input type="text" name='back-text' value={backText} onChange={(evt) => setBackText(evt.target.value)} className={inputClassName} />
+                        <input type="text" name='back-text' value={back_text} onChange={(evt) => setBackText(evt.target.value)} className={inputClassName} />
                     </div>
                     <div>
                         <label htmlFor="color">Select a background color for the FRONT of your card </label>
-                        <input value={backgroundColor} name="color" type="color" onChange={selectFrontColor} />
+                        <input value={front_background_color} name="color" type="color" onChange={selectFrontColor} />
                     </div>
                     <label htmlFor="color">Select a background color for the BACK of your card </label>
-                    <input value={backBackgroundColor} name="color" type="color" onChange={selectBackColor} />
+                    <input value={back_background_color} name="color" type="color" onChange={selectBackColor} />
                     <div>
                         <label htmlFor="font">Choose a font</label>
                         <select value={font} name="font" onChange={e => {
@@ -134,25 +137,18 @@ const CreateCard = ({ token, username }) => {
                         </select>
                     </div>
                 </div>
-                <div className="PreviewContainer" onClick={flipCard}>
-                    <div>
-                        {(!flip) && <FrontOfCard
-                            font={font}
-                            frontText={frontText}
-                            backgroundColor={backgroundColor}
-                            token={token}
-                        />}
-                    </div>
-                    {flip && <div>
-                        <BackOfCard
-                            font={font}
-                            backText={backText}
-                            backBackgroundColor={backBackgroundColor}
-                        />
-                    </div>
-                    }
-                </div>
-
+                <Card
+                    // key={id}
+                    font={font}
+                    uploadImage={imageURL}
+                    front_text={front_text}
+                    back_text={back_text}
+                    front_background_color={front_background_color}
+                    back_background_color={back_background_color}
+                    token={token}
+                    creator={username}
+                    creatorID={creator_id}
+                />
                 <button type="button" onClick={handlePublish}>Publish</button>
                 {card_id && <button type="button" onClick={handleDelete}>Delete</button>}
             </div>

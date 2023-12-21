@@ -62,6 +62,7 @@ body {
 .cardContainer {
   justify-content: center;
   align-content: center;
+  overflow: hidden;
 }
 
 .front-card,

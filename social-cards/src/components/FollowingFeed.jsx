@@ -1,9 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import FrontOfCard from "./FrontOfCard";
-import BackOfCard from "./BackOfCard";
-import FollowUser from "./FollowUser";
+import Card from "./Card";
 
 const FollowingFeed = ({ token }) => {
     const [isFollowing, setIsFollowing] = useState([]);
@@ -37,11 +35,6 @@ const FollowingFeed = ({ token }) => {
         return isFollowing.some((user) => user.id === creatorID)
     }
 
-    // remove after card component implemented
-    const [flip, setFlip] = useState(false)
-    const flipCard = (e) => {
-        setFlip(!flip)
-    }
 
 
     return (
@@ -52,37 +45,19 @@ const FollowingFeed = ({ token }) => {
                     return (
                         <>
                             {isUserFollowing(card.creator_id) ?
-                                <>
-                                    <div className='cardContainer' onClick={flipCard}>
-                                        <FollowUser
-                                            token={token}
-                                            creator={card.creator}
-                                            creatorID={card.creator_id}
-                                        />
+                                <Card
+                                    key={card.id}
+                                    font={card.font}
+                                    uploadImage={card.imageURL}
+                                    front_text={card.front_text}
+                                    back_text={card.back_text}
+                                    front_background_color={card.background_color}
+                                    back_background_color={card.back_background_color}
+                                    token={token}
+                                    creator={card.creator}
+                                    creator_id={card.creator_id}
 
-                                        {(!flip) ?
-                                            <FrontOfCard
-                                                key={card.id}
-                                                font={card.font}
-                                                frontText={card.front_text}
-                                                uploadImage={card.imageURL}
-                                                backgroundColor={card.background_color}
-                                                token={token}
-                                                creator={card.creator}
-                                                creatorID={card.creator_id}
-                                            /> :
-                                            <BackOfCard
-                                                key={card.id}
-                                                font={card.font}
-                                                backText={card.back_text}
-                                                uploadImage={card.imageURL}
-                                                backgroundColor={card.background_color}
-                                                token={token}
-                                                creator={card.creator}
-                                                creatorID={card.creator_id}
-                                            />}
-                                    </div>
-                                </>
+                                />
                                 :
                                 <></>
 
