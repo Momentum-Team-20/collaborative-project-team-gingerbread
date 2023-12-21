@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FollowUser = ({ token, creator, creatorID }) => {
+const FollowUser = ({ token, creator, creator_id, username }) => {
 
     const [isFollowing, setIsFollowing] = useState([]);
     const navigate = useNavigate();
@@ -19,9 +19,10 @@ const FollowUser = ({ token, creator, creatorID }) => {
             });
     }, [token]);
 
+
     // handles user clicking follow button. adds selected user to followers list and posts to api
-    const handleFollow = (creatorID) => {
-        const followedUserId = parseInt(creatorID);
+    const handleFollow = (creator_id) => {
+        const followedUserId = parseInt(creator_id);
 
         axios
             .post("https://social-cards.fly.dev/api/follows/", {
@@ -43,9 +44,9 @@ const FollowUser = ({ token, creator, creatorID }) => {
     };
 
     // handles unfollowing user. removes selected user from followers list and deletes from DB
-    const handleUnfollow = (creatorID) => {
+    const handleUnfollow = (creator_id) => {
 
-        axios.delete(`https://social-cards.fly.dev/api/unfollow/${creatorID}`, {
+        axios.delete(`https://social-cards.fly.dev/api/unfollow/${creator_id}`, {
             headers: {
                 Authorization: `Token ${token}`,
             },
@@ -58,33 +59,36 @@ const FollowUser = ({ token, creator, creatorID }) => {
     }
 
     // checks to see if selected user is currently in following list
-    const isUserFollowing = (creatorId) => {
-        return isFollowing.some((user) => user.id === creatorId)
+    const isUserFollowing = (creator_id) => {
+        return isFollowing.some((user) => user.id === creator_id)
     }
 
     return (
         <div className='mt-4'>
-            <div className='' >
+            <div className='card-content' >
                 <div className='header flex my-2 '>
-                    <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex-none">
-                        <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
-                    </div>
-                    <div className="text-sm font-medium text-white-900 truncate dark:text-white flex grow ml-2">
-                        <p >{`${creator}`}</p>
-                    </div>
-                    <div className='follow-icons flex-none'>
-                        {!isUserFollowing(creatorID) ?
+
+
+                    <div className='follow-icons'>
+                        {!isUserFollowing(creator_id) ?
                             // follow symbol
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleFollow(creatorID)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleFollow(creator_id)}>
                                 <path fill="#4caf50" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M21,14h6v20h-6V14z"></path><path fill="#fff" d="M14,21h20v6H14V21z"></path>
                             </svg>
                             :
                             // delete/unfollow symbol
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleUnfollow(creatorID)} className='basis-1/5 ml-5'>
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleUnfollow(creator_id)} className='basis-1/5 ml-5'>
                                 <path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path>
                             </svg>
 
                         }
+
+                    </div>
+                    <div className="media-content ml-2">
+                        {/* <div className="media-left">
+                            <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                        </div> */}
+                        <p className="title is-4">{creator}</p>
                     </div>
                 </div>
             </div>
@@ -93,3 +97,6 @@ const FollowUser = ({ token, creator, creatorID }) => {
 }
 
 export default FollowUser;
+
+
+
