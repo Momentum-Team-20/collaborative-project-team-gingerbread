@@ -51,14 +51,21 @@ body {
   display: inline !important;
 }
 
-/* positions icons to the right side of the card */
-.follow-icons {
-  margin-left: 14vw;
+
+/* for the add icon in the create new card tile */
+.new-card {
+  height: 33vh;
+  margin-left: 10vw;
 }
 
-.new-card {
-  width: 28vw;
+
+.cardContainer {
   justify-content: center;
   align-content: center;
-  margin-top: 20vw;
+  overflow: hidden;
+}
+
+.front-card,
+.back-card {
+  height: 33vh;
 }

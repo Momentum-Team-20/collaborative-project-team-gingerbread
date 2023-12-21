@@ -4,19 +4,16 @@ import axios from 'axios';
 import FollowUser from './FollowUser';
 import FrontOfCard from './FrontOfCard';
 import BackOfCard from './BackOfCard';
+import Card from './Card';
 
-const Profile = ({ isAuthenticated, token }) => {
+const Profile = ({ isAuthenticated, token, }) => {
 
     const [cards, setCards] = useState([]);
     const [count, setCount] = useState(0);
-    const [flip, setFlip] = useState(false)
     const [expanded, setExpanded] = useState(false);
     const [showFollowers, setShowFollowers] = useState([]);
     const navigate = useNavigate();
 
-    const flipCard = (e) => {
-        setFlip(!flip)
-    }
 
     const handleFollowerListExpandedClick = () => {
         setExpanded(!expanded);
@@ -79,30 +76,19 @@ return (
             {cards.map((card) => {
                 return (
                     <>
-                        <div className='cardContainer' onClick={flipCard}>
-                            <div> 
-                            {(!flip) && <FrontOfCard
+                       <div><Card
                                 key={card.id}
                                 font={card.font}
-                                frontText={card.front_text}
                                 uploadImage={card.imageURL}
-                                backgroundColor={card.background_color}
+                                front_text={card.front_text}
+                                back_text={card.back_text}
+                                front_background_color={card.background_color}
+                                back_background_color={card.back_background_color}
                                 token={token}
                                 creator={card.creator}
-                                creatorID={card.creator_id}
-                            />}
-                            </div>
-                            {flip && <div><BackOfCard
-                                key={card.id}
-                                font={card.font}
-                                backText={card.back_text}
-                                uploadImage={card.imageURL}
-                                backgroundColor={card.background_color}
-                                token={token}
-                                creator={card.creator}
-                                creatorID={card.creator_id}
+                                creator_id={card.creator_id}
+
                             />
-                            </div>}
                             <Link key={card.id} to={`/editCard/${card.id}`}>
                                 <button>Edit Card</button>
                             </Link>
