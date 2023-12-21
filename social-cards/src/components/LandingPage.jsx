@@ -8,6 +8,7 @@ import BackOfCard from './BackOfCard';
 const LandingPage = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,9 +20,15 @@ const LandingPage = ({ isAuthenticated, token }) => {
             })
     }, [])
 
+    // remove after card component implemented
+    const [flip, setFlip] = useState(false)
+    const flipCard = (e) => {
+        setFlip(!flip)
+    }
+
     return (
         <>
-            <div className='flex flex-wrap flex-col md:flex-row gap-4'>
+            <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
                 <div className="border my-4">
                     <Link to={{ pathname: '/newCard' }} >
                         <svg className='flex new-card ' xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48" >
@@ -30,36 +37,39 @@ const LandingPage = ({ isAuthenticated, token }) => {
                         <h4>Create New Card</h4>
                     </Link>
                 </div>
+
+
                 {cards.map((card) => {
                     return (
                         <>
-                            <div className='cardContainer'>
+                            <div className='cardContainer' onClick={flipCard}>
                                 <FollowUser
                                     token={token}
                                     creator={card.creator}
                                     creatorID={card.creator_id}
                                 />
 
-                                <FrontOfCard
-                                    key={card.id}
-                                    font={card.font}
-                                    frontText={card.front_text}
-                                    uploadImage={card.imageURL}
-                                    backgroundColor={card.background_color}
-                                    token={token}
-                                    creator={card.creator}
-                                    creatorID={card.creator_id}
-                                />
-                                <BackOfCard
-                                    key={card.id}
-                                    font={card.font}
-                                    backText={card.back_text}
-                                    uploadImage={card.imageURL}
-                                    backgroundColor={card.background_color}
-                                    token={token}
-                                    creator={card.creator}
-                                    creatorID={card.creator_id}
-                                />
+                                {(!flip) ?
+                                    <FrontOfCard
+                                        key={card.id}
+                                        font={card.font}
+                                        frontText={card.front_text}
+                                        uploadImage={card.imageURL}
+                                        backgroundColor={card.background_color}
+                                        token={token}
+                                        creator={card.creator}
+                                        creatorID={card.creator_id}
+                                    /> :
+                                    <BackOfCard
+                                        key={card.id}
+                                        font={card.font}
+                                        backText={card.back_text}
+                                        uploadImage={card.imageURL}
+                                        backgroundColor={card.background_color}
+                                        token={token}
+                                        creator={card.creator}
+                                        creatorID={card.creator_id}
+                                    />}
                                 <Link key={card.id} to={`/editCard/${card.id}`}>
                                     <button>Edit Card</button>
                                 </Link>
@@ -68,6 +78,7 @@ const LandingPage = ({ isAuthenticated, token }) => {
                     );
                 })}
             </div >
+            {/* </div > */}
         </>
     )
 }

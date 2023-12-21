@@ -37,24 +37,30 @@ const FollowingFeed = ({ token }) => {
         return isFollowing.some((user) => user.id === creatorID)
     }
 
+    // remove after card component implemented
+    const [flip, setFlip] = useState(false)
+    const flipCard = (e) => {
+        setFlip(!flip)
+    }
+
+
     return (
         <>
             <h1 className="text-5xl text-white-900 dark:text-white">Welcome to the Collective</h1>
             <div className="flex flex-wrap flex-col md:flex-row gap-4">
-                {/* {isFollowing.map((user) => {
+                {cards.map((card) => {
                     return (
-                        // eslint-disable-next-line react/jsx-key
-                        <div className="cardContainer">
-                            {cards.map((card) => {
-                                if (user.username === card.creator)
-                                    return (
-                                        <>
-                                            <FollowUser
-                                                token={token}
-                                                creator={card.creator}
-                                                creatorID={card.creator_id}
-                                            />
+                        <>
+                            {isUserFollowing(card.creator_id) ?
+                                <>
+                                    <div className='cardContainer' onClick={flipCard}>
+                                        <FollowUser
+                                            token={token}
+                                            creator={card.creator}
+                                            creatorID={card.creator_id}
+                                        />
 
+                                        {(!flip) ?
                                             <FrontOfCard
                                                 key={card.id}
                                                 font={card.font}
@@ -64,7 +70,7 @@ const FollowingFeed = ({ token }) => {
                                                 token={token}
                                                 creator={card.creator}
                                                 creatorID={card.creator_id}
-                                            />
+                                            /> :
                                             <BackOfCard
                                                 key={card.id}
                                                 font={card.font}
@@ -72,47 +78,9 @@ const FollowingFeed = ({ token }) => {
                                                 uploadImage={card.imageURL}
                                                 backgroundColor={card.background_color}
                                                 token={token}
-                                                creator={card.creator} 
+                                                creator={card.creator}
                                                 creatorID={card.creator_id}
-                                            />
-                                        </>
-                                    );
-                            })}
-                        </div>
-                    );
-                })} */}
-                {cards.map((card) => {
-                    return (
-                        <>
-                            {isUserFollowing(card.creator_id) ?
-                                <>
-                                    <div className="cardContainer">
-                                        <FollowUser
-                                            token={token}
-                                            creator={card.creator}
-                                            creatorID={card.creator_id}
-                                        />
-
-                                        <FrontOfCard
-                                            key={card.id}
-                                            font={card.font}
-                                            frontText={card.front_text}
-                                            uploadImage={card.imageURL}
-                                            backgroundColor={card.background_color}
-                                            token={token}
-                                            creator={card.creator}
-                                            creatorID={card.creator_id}
-                                        />
-                                        <BackOfCard
-                                            key={card.id}
-                                            font={card.font}
-                                            backText={card.back_text}
-                                            uploadImage={card.imageURL}
-                                            backgroundColor={card.background_color}
-                                            token={token}
-                                            creator={card.creator}
-                                            creatorID={card.creator_id}
-                                        />
+                                            />}
                                     </div>
                                 </>
                                 :
