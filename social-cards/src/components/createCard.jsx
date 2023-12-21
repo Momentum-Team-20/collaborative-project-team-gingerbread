@@ -96,14 +96,6 @@ const CreateCard = ({ token, username }) => {
         }
     }
 
-    // console.log(flip, 'is flippe')
-    const flipCard = (e) => {
-        setFlip(!flip)
-    }
-
-
-    // console.log('front text is', frontText)
-
 
     return (
         <div>
