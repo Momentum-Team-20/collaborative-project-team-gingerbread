@@ -9,6 +9,8 @@ import Registration from './components/Registration';
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import CreateCard from './components/createCard';
+import FollowingFeed from './components/FollowingFeed'
+
 
 
 function App() {
@@ -30,9 +32,9 @@ function App() {
         <Route
           path='/'
           element={<LandingPage isAuthenticated={isAuthenticated} token={token} />} />
-        {/* <Route
-            path='/home'
-          element={<Gallery token={token} />} /> */}
+        <Route
+          path='/home'
+          element={<FollowingFeed token={token} />} />
         <Route
           path='/registration'
           element={<Registration />} />

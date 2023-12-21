@@ -27,7 +27,7 @@ const Login = ({ setAuth }) => {
             })
             .then((res) => {
                 setAuth(username, res.data.auth_token);
-                navigate("/");
+                navigate("/home");
             })
             .catch((err) => setError(err.response.data.non_field_errors[0]));
     };
