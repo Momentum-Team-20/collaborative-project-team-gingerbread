@@ -107,18 +107,18 @@ const CreateCard = ({ token, username }) => {
             <div className="makeACard">
                 <div className="sidebarOptions">
                     <div>
-                        <span>Front Text</span>
-                        <input type="text" value={frontText} onChange={(evt) => setFrontText(evt.target.value)} />
+                        <label className={labelClassName} htmlFor="front-text">Front Text</label>
+                        <input type="text" name="front-text" value={frontText} onChange={(evt) => setFrontText(evt.target.value)} className={inputClassName} />
                     </div>
                     <div>
-                        <span>Back Text</span>
-                        <input type="text" value={backText} onChange={(evt) => setBackText(evt.target.value)} />
+                        <label className={labelClassName} htmlFor="back-text">Back Text</label>
+                        <input type="text" name='back-text' value={backText} onChange={(evt) => setBackText(evt.target.value)} className={inputClassName} />
                     </div>
                     <div>
-                        <label htmlFor="color">Select a background color for the FRONT of your card</label>
+                        <label htmlFor="color">Select a background color for the FRONT of your card </label>
                         <input value={backgroundColor} name="color" type="color" onChange={selectFrontColor} />
                     </div>
-                    <label htmlFor="color">Select a background color for the BACK of your card</label>
+                    <label htmlFor="color">Select a background color for the BACK of your card </label>
                     <input value={backBackgroundColor} name="color" type="color" onChange={selectBackColor} />
                     <div>
                         <label htmlFor="font">Choose a font</label>

@@ -19,6 +19,7 @@ const FollowUser = ({ token, creator, creatorID }) => {
             });
     }, [token]);
 
+
     // handles user clicking follow button. adds selected user to followers list and posts to api
     const handleFollow = (creatorID) => {
         const followedUserId = parseInt(creatorID);
@@ -64,15 +65,27 @@ const FollowUser = ({ token, creator, creatorID }) => {
 
     return (
         <div className='mt-4'>
-            <div className='' >
+            <div className='card-content' >
                 <div className='header flex my-2 '>
-                    <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex-none">
+                    {/* <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex-none">
                         <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
                     </div>
                     <div className="text-sm font-medium text-white-900 truncate dark:text-white flex grow ml-2">
                         <p >{`${creator}`}</p>
+                    </div> */}
+
+
+
+                    <div className="media">
+                        {/* <div className="media-left">
+                            <svg className="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                        </div> */}
+
                     </div>
-                    <div className='follow-icons flex-none'>
+
+
+                    {/* <div className='follow-icons flex-none'> */}
+                    <div className=" follow-icons">
                         {!isUserFollowing(creatorID) ?
                             // follow symbol
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 48 48" onClick={() => handleFollow(creatorID)}>
@@ -85,6 +98,10 @@ const FollowUser = ({ token, creator, creatorID }) => {
                             </svg>
 
                         }
+
+                    </div>
+                    <div className="media-content ml-2">
+                        <p className="title is-4">{creator}</p>
                     </div>
                 </div>
             </div>
@@ -93,3 +110,6 @@ const FollowUser = ({ token, creator, creatorID }) => {
 }
 
 export default FollowUser;
+
+
+
