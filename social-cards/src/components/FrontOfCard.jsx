@@ -1,25 +1,12 @@
-import { useState } from 'react'
-import axios from 'axios'
-
-const FrontOfCard = ({ font, frontText, uploadImage, backgroundColor }) => {
+const FrontOfCard = ({ font, frontText, uploadImage, front_background_color }) => {
     return (
-        // <div className="frontCardPreview" style={{
-        //     backgroundColor: backgroundColor,
-        //     fontFamily: font
-        // }
-        // }>
-        //     {`Front text goes here:
-        // ${font}
-        // ${backgroundColor}`}
-        //     <div className='frontTextDisplay'>{`${frontText}`}</div>
-        // </div>
 
         <div className="content front-card" style={{
-            backgroundColor: backgroundColor,
+            backgroundColor: front_background_color,
             fontFamily: font
         }}>
-            {`Front text goes here: ${font} ${backgroundColor}`}
-            <div>{frontText}</div>
+            {`Front text goes here: ${font} ${front_background_color}`}
+            <div className="flex flex-wrap">{frontText}</div>
         </div>
     )
 }

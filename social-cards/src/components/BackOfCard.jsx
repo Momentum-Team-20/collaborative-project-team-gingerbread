@@ -1,25 +1,13 @@
-import { useState } from 'react'
-import axios from 'axios'
-
-const BackOfCard = ({ font, backText, uploadImage, backgroundColor }) => {
+const BackOfCard = ({ font, backText, uploadImage, back_background_color }) => {
 
     return (
-        // <div className="backCardPreview" style={{
-        //     backgroundColor: backgroundColor,
-        //     fontFamily: font
-        // }
-        // }>
-        //     {`Back text goes here:
-        // ${font}
-        // ${backgroundColor}`}
-        //     <div className='backTextDisplay'>{backText}</div>
-        // </div>
+
 
         <div className="content back-card" style={{
-            backgroundColor: backgroundColor,
+            backgroundColor: back_background_color,
             fontFamily: font,
         }}>
-            {`Back text goes here: ${font} ${backgroundColor}`}
+            {`Back text goes here: ${font} ${back_background_color}`}
             <div>{backText}</div>
         </div>
     )
