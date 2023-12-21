@@ -9,6 +9,7 @@ import Registration from './components/Registration';
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import CreateCard from './components/createCard';
+import Profile from './components/Profile';
 
 
 function App() {
@@ -39,9 +40,9 @@ function App() {
         <Route
           path='/login'
           element={<Login setAuth={setAuth} />} />
-        {/* <Route
+        <Route
             path='/profile'
-            element={<Profile token={token} />} /> */}
+            element={<Profile token={token} />} />
         <Route
           path='/newCard'
           element={<CreateCard token={token} username={username} />} />
