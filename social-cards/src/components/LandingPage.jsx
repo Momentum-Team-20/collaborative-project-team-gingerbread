@@ -4,6 +4,7 @@ import axios from 'axios';
 import FollowUser from './FollowUser';
 import FrontOfCard from './FrontOfCard';
 import BackOfCard from './BackOfCard';
+import Card from './Card'
 
 const LandingPage = ({ isAuthenticated, token }) => {
 
@@ -42,7 +43,20 @@ const LandingPage = ({ isAuthenticated, token }) => {
                 {cards.map((card) => {
                     return (
                         <>
-                            <div className='cardContainer' onClick={flipCard}>
+                            <Card
+                                key={card.id}
+                                font={card.font}
+                                uploadImage={card.imageURL}
+                                front_text={card.front_text}
+                                back_text={card.back_text}
+                                front_background_color={card.background_color}
+                                back_background_color={card.back_background_color}
+                                token={token}
+                                creator={card.creator}
+                                creatorID={card.creator_id}
+
+                            />
+                            {/* <div className='cardContainer' onClick={flipCard}>
                                 <FollowUser
                                     token={token}
                                     creator={card.creator}
@@ -65,7 +79,7 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                         font={card.font}
                                         backText={card.back_text}
                                         uploadImage={card.imageURL}
-                                        backgroundColor={card.background_color}
+                                        backBackgroundColor={card.back_background_color}
                                         token={token}
                                         creator={card.creator}
                                         creatorID={card.creator_id}
@@ -73,7 +87,7 @@ const LandingPage = ({ isAuthenticated, token }) => {
                                 <Link key={card.id} to={`/editCard/${card.id}`}>
                                     <button>Edit Card</button>
                                 </Link>
-                            </div>
+                            </div> */}
                         </>
                     );
                 })}

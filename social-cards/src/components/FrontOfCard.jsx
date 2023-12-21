@@ -1,7 +1,4 @@
-import { useState } from 'react'
-import axios from 'axios'
-
-const FrontOfCard = ({ font, frontText, uploadImage, backgroundColor }) => {
+const FrontOfCard = ({ font, frontText, uploadImage, front_background_color }) => {
     return (
         // <div className="frontCardPreview" style={{
         //     backgroundColor: backgroundColor,
@@ -15,10 +12,10 @@ const FrontOfCard = ({ font, frontText, uploadImage, backgroundColor }) => {
         // </div>
 
         <div className="content front-card" style={{
-            backgroundColor: backgroundColor,
+            backgroundColor: front_background_color,
             fontFamily: font
         }}>
-            {`Front text goes here: ${font} ${backgroundColor}`}
+            {`Front text goes here: ${font} ${front_background_color}`}
             <div>{frontText}</div>
         </div>
     )

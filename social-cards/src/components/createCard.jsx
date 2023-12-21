@@ -93,7 +93,7 @@ const CreateCard = ({ token, username }) => {
         }
     }
 
-    console.log(flip, 'is flippe')
+    // console.log(flip, 'is flippe')
     const flipCard = (e) => {
         setFlip(!flip)
     }
