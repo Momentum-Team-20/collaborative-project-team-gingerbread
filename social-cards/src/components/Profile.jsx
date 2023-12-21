@@ -8,7 +8,22 @@ import BackOfCard from './BackOfCard';
 const Profile = ({ isAuthenticated, token }) => {
 
     const [cards, setCards] = useState([]);
+    const [isFollowing, setIsFollowing] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios
+            .get("https://social-cards.fly.dev/api/users/followed", {
+                headers: { Authorization: `Token ${token}` },
+            })
+            .then((response) => {
+                // console.log("hello", response.data.results)
+                setIsFollowing(response.data.results);
+            });
+    }, [token]);
+
+    // let count = isFollowing.length [for follower count number]
+
 
 
     //api for cards/me {PROFILE page}
